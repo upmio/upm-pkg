@@ -20,9 +20,9 @@ package v1alpha1
 import (
 	"context"
 	"time"
-	v1alpha1 "upm-pkg/pkg/apis/unit/v1alpha1"
-	scheme "upm-pkg/pkg/client/unit/clientset/versioned/scheme"
 
+	v1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
+	scheme "github.com/upmio/upm-pkg/pkg/client/unit/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"

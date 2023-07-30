@@ -18,8 +18,8 @@ limitations under the License.
 package unitset
 
 import (
-	internalinterfaces "upm-pkg/pkg/client/unitset/informers/externalversions/internalinterfaces"
-	v1alpha1 "upm-pkg/pkg/client/unitset/informers/externalversions/unitset/v1alpha1"
+	internalinterfaces "github.com/upmio/upm-pkg/pkg/client/unitset/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/informers/externalversions/unitset/v1alpha1"
 )
 
 // Interface provides access to each of this group's versions.

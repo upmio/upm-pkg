@@ -18,8 +18,7 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha1 "upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1"
-
+	v1alpha1 "github.com/upmio/upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )

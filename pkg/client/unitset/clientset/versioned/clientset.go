@@ -19,8 +19,8 @@ package versioned
 
 import (
 	"fmt"
-	unitsetv1alpha1 "upm-pkg/pkg/client/unitset/clientset/versioned/typed/unitset/v1alpha1"
 
+	unitsetv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned/typed/unitset/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

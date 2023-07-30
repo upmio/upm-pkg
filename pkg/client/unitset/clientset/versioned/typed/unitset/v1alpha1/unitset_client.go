@@ -18,9 +18,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "upm-pkg/pkg/apis/unitset/v1alpha1"
-	"upm-pkg/pkg/client/unitset/clientset/versioned/scheme"
-
+	v1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unitset/v1alpha1"
+	"github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

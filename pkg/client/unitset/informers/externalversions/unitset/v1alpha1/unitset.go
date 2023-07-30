@@ -20,11 +20,11 @@ package v1alpha1
 import (
 	"context"
 	time "time"
-	unitsetv1alpha1 "upm-pkg/pkg/apis/unitset/v1alpha1"
-	versioned "upm-pkg/pkg/client/unitset/clientset/versioned"
-	internalinterfaces "upm-pkg/pkg/client/unitset/informers/externalversions/internalinterfaces"
-	v1alpha1 "upm-pkg/pkg/client/unitset/listers/unitset/v1alpha1"
 
+	unitsetv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unitset/v1alpha1"
+	versioned "github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned"
+	internalinterfaces "github.com/upmio/upm-pkg/pkg/client/unitset/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/listers/unitset/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
