@@ -16,9 +16,10 @@ CODEGEN_PKG="${GOPATH}/src/k8s.io/code-generator"
 #bash "${CODEGEN_PKG}"/generate-groups.sh "deepcopy,client,informer,lister" \
 
 # for unit
+#  ../upmio/upm-pkg/pkg/client/unit \
 #bash "${CODEGEN_PKG}"/generate-groups.sh \
 #  all \
-#  ../upmio/upm-pkg/pkg/client/unit \
+#  upm-pkg/pkg/client/unit \
 #  upm-pkg/pkg/apis \
 #  unit:v1alpha1 \
 #  --output-base "$(dirname "${BASH_SOURCE[0]}")/../.." \
@@ -27,7 +28,7 @@ CODEGEN_PKG="${GOPATH}/src/k8s.io/code-generator"
 # for unitset
 #bash "${CODEGEN_PKG}"/generate-groups.sh \
 #  all \
-#  ../upmio/upm-pkg/pkg/client/unitset \
+#  upm-pkg/pkg/client/unitset \
 #  upm-pkg/pkg/apis \
 #  unitset:v1alpha1 \
 #  --output-base "$(dirname "${BASH_SOURCE[0]}")/../.." \

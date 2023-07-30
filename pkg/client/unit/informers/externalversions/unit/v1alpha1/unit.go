@@ -21,10 +21,10 @@ import (
 	"context"
 	time "time"
 	unitv1alpha1 "upm-pkg/pkg/apis/unit/v1alpha1"
+	versioned "upm-pkg/pkg/client/unit/clientset/versioned"
+	internalinterfaces "upm-pkg/pkg/client/unit/informers/externalversions/internalinterfaces"
+	v1alpha1 "upm-pkg/pkg/client/unit/listers/unit/v1alpha1"
 
-	versioned "../upmio/upm-pkg/pkg/client/unit/clientset/versioned"
-	internalinterfaces "../upmio/upm-pkg/pkg/client/unit/informers/externalversions/internalinterfaces"
-	v1alpha1 "../upmio/upm-pkg/pkg/client/unit/listers/unit/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"

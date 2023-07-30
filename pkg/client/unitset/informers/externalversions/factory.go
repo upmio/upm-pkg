@@ -21,10 +21,10 @@ import (
 	reflect "reflect"
 	sync "sync"
 	time "time"
+	versioned "upm-pkg/pkg/client/unitset/clientset/versioned"
+	internalinterfaces "upm-pkg/pkg/client/unitset/informers/externalversions/internalinterfaces"
+	unitset "upm-pkg/pkg/client/unitset/informers/externalversions/unitset"
 
-	versioned "../upmio/upm-pkg/pkg/client/unitset/clientset/versioned"
-	internalinterfaces "../upmio/upm-pkg/pkg/client/unitset/informers/externalversions/internalinterfaces"
-	unitset "../upmio/upm-pkg/pkg/client/unitset/informers/externalversions/unitset"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

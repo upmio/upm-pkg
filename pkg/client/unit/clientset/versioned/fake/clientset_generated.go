@@ -18,9 +18,10 @@ limitations under the License.
 package fake
 
 import (
-	clientset "../upmio/upm-pkg/pkg/client/unit/clientset/versioned"
-	unitv1alpha1 "../upmio/upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1"
-	fakeunitv1alpha1 "../upmio/upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1/fake"
+	clientset "upm-pkg/pkg/client/unit/clientset/versioned"
+	unitv1alpha1 "upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1"
+	fakeunitv1alpha1 "upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1/fake"
+
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
