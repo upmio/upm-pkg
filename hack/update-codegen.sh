@@ -15,17 +15,20 @@ CODEGEN_PKG="${GOPATH}/src/k8s.io/code-generator"
 #                  instead of the $GOPATH directly. For normal projects this can be dropped.
 #bash "${CODEGEN_PKG}"/generate-groups.sh "deepcopy,client,informer,lister" \
 
-#
-# ../../gitlab.bsgchina.com/upm/pkg/client/unit \
-# tesseract/pkg/client/unit \
+# for unit
+#bash "${CODEGEN_PKG}"/generate-groups.sh \
+#  all \
+#  ../upmio/upm-pkg/pkg/client/unit \
+#  upm-pkg/pkg/apis \
+#  unit:v1alpha1 \
+#  --output-base "$(dirname "${BASH_SOURCE[0]}")/../.." \
+#  --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt
 
-bash "${CODEGEN_PKG}"/generate-groups.sh \
-  all \
-  ../upmio/upm-pkg/pkg/client/unit \
-  ../upmio/upm-pkg/pkg/apis \
-  unit:v1alpha1 \
-  --output-base "$(dirname "${BASH_SOURCE[0]}")/../.." \
-  --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt
-
-# To use your own boilerplate text append:
-#   --go-header-file "${SCRIPT_ROOT}"/hack/custom-boilerplate.go.txt
+# for unitset
+#bash "${CODEGEN_PKG}"/generate-groups.sh \
+#  all \
+#  ../upmio/upm-pkg/pkg/client/unitset \
+#  upm-pkg/pkg/apis \
+#  unitset:v1alpha1 \
+#  --output-base "$(dirname "${BASH_SOURCE[0]}")/../.." \
+#  --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt
