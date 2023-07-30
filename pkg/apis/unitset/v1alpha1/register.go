@@ -1,10 +1,10 @@
 package v1alpha1
 
 import (
+	"github.com/upmio/upm-pkg/pkg/apis/unitset"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"upm-pkg/pkg/apis/unitset"
 )
 
 // SchemeGroupVersion is group version used to register these objects
