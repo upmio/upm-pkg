@@ -7,7 +7,7 @@ set -x
 
 #SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 #CODEGEN_PKG=${CODEGEN_PKG:-$(cd "${SCRIPT_ROOT}"; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
-CODEGEN_PKG="${GOPATH}/src/k8s.io/code-generator"
+CODEGEN_PKG="${GOPATH}/src/github.com/kubernetes/code-generator"
 
 # generate the code with:
 # --output-base    because this script should also be able to run inside the vendor dir of
@@ -39,3 +39,6 @@ CODEGEN_PKG="${GOPATH}/src/k8s.io/code-generator"
 
 # for unit
 #${CODEGEN_PKG}/generate-groups.sh all  github.com/upmio/upm-pkg/pkg/client/unit  github.com/upmio/upm-pkg/pkg/apis unit:v1alpha1 --go-header-file ./boilerplate.go.txt
+
+# for test
+#${CODEGEN_PKG}/generate-groups.sh all  github.com/upmio/upm-pkg/pkg/client/unitset-test  github.com/upmio/upm-pkg/pkg/apis unitset:v1alpha1 --go-header-file ./boilerplate.go.txt
