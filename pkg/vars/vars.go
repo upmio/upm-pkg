@@ -1,9 +1,5 @@
 package vars
 
-import (
-	"os"
-)
-
 var (
 	// GITCOMMIT will be overwritten automatically by the build system
 	GITCOMMIT = "HEAD"
@@ -16,27 +12,27 @@ var (
 	AescbcwithivKey    = "7e20c20ea7564231a76dd83ac1cf7013"
 
 	ManagerNamespace = "unknown"
-	//EngineImage      = "unknown"
+	// EngineImage      = "unknown"
 	ProjectName = "upm"
 	IpFamily    = "IPv4"
 )
 
-func init() {
-	managerNamespace := os.Getenv("NAMESPACE")
-	if managerNamespace == "" {
-		klog.Fatalf("not found env: [NAMESPACE], can't start service...")
-	} else {
-		ManagerNamespace = managerNamespace
-	}
-
-	ipFamily := os.Getenv("IP_FAMILY")
-	if ipFamily == "" {
-		klog.Infof("not found env: [IP_FAMILY], only support [SingleStack:IPv4]...")
-	} else {
-		klog.Infof("found env: [IP_FAMILY], only support [%s]...", ipFamily)
-		IpFamily = ipFamily
-	}
-}
+// func init() {
+// 	managerNamespace := os.Getenv("NAMESPACE")
+// 	if managerNamespace == "" {
+// 		klog.Fatalf("not found env: [NAMESPACE], can't start service...")
+// 	} else {
+// 		ManagerNamespace = managerNamespace
+// 	}
+//
+// 	ipFamily := os.Getenv("IP_FAMILY")
+// 	if ipFamily == "" {
+// 		klog.Infof("not found env: [IP_FAMILY], only support [SingleStack:IPv4]...")
+// 	} else {
+// 		klog.Infof("found env: [IP_FAMILY], only support [%s]...", ipFamily)
+// 		IpFamily = ipFamily
+// 	}
+// }
 
 var (
 	ServiceAccountSuffix     = ProjectName + "-sa"
