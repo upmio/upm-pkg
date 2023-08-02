@@ -19,6 +19,11 @@ type Unitset struct {
 
 // UnitsetSpec is the spec for a Unitset resource
 type UnitsetSpec struct {
+	// required: false
+	// shared config configmap name
+	// 如果非空，先检查是否存在该cm，如果没有则报错
+	// 则使用该configmap作为shared config
+	SharedConfigName string `json:"shared_config_name"`
 	// 是否与node绑定，默认false=绑定
 	// required: false
 	UnbindNode bool `json:"unbind_node,omitempty"`

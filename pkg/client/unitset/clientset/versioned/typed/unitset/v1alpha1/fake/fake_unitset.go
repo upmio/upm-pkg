@@ -19,11 +19,13 @@ package fake
 
 import (
 	"context"
+	json "encoding/json"
+	"fmt"
 
 	v1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unitset/v1alpha1"
+	unitsetv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/applyconfiguration/unitset/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -35,9 +37,9 @@ type FakeUnitsets struct {
 	ns   string
 }
 
-var unitsetsResource = schema.GroupVersionResource{Group: "unitset.bsgchina.com", Version: "v1alpha1", Resource: "unitsets"}
+var unitsetsResource = v1alpha1.SchemeGroupVersion.WithResource("unitsets")
 
-var unitsetsKind = schema.GroupVersionKind{Group: "unitset.bsgchina.com", Version: "v1alpha1", Kind: "Unitset"}
+var unitsetsKind = v1alpha1.SchemeGroupVersion.WithKind("Unitset")
 
 // Get takes name of the unitset, and returns the corresponding unitset object, and an error if there is any.
 func (c *FakeUnitsets) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Unitset, err error) {
@@ -116,7 +118,7 @@ func (c *FakeUnitsets) UpdateStatus(ctx context.Context, unitset *v1alpha1.Units
 // Delete takes name of the unitset and deletes it. Returns an error if one occurs.
 func (c *FakeUnitsets) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(unitsetsResource, c.ns, name), &v1alpha1.Unitset{})
+		Invokes(testing.NewDeleteActionWithOptions(unitsetsResource, c.ns, name, opts), &v1alpha1.Unitset{})
 
 	return err
 }
@@ -133,6 +135,51 @@ func (c *FakeUnitsets) DeleteCollection(ctx context.Context, opts v1.DeleteOptio
 func (c *FakeUnitsets) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Unitset, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(unitsetsResource, c.ns, name, pt, data, subresources...), &v1alpha1.Unitset{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.Unitset), err
+}
+
+// Apply takes the given apply declarative configuration, applies it and returns the applied unitset.
+func (c *FakeUnitsets) Apply(ctx context.Context, unitset *unitsetv1alpha1.UnitsetApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unitset, err error) {
+	if unitset == nil {
+		return nil, fmt.Errorf("unitset provided to Apply must not be nil")
+	}
+	data, err := json.Marshal(unitset)
+	if err != nil {
+		return nil, err
+	}
+	name := unitset.Name
+	if name == nil {
+		return nil, fmt.Errorf("unitset.Name must be provided to Apply")
+	}
+	obj, err := c.Fake.
+		Invokes(testing.NewPatchSubresourceAction(unitsetsResource, c.ns, *name, types.ApplyPatchType, data), &v1alpha1.Unitset{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.Unitset), err
+}
+
+// ApplyStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
+func (c *FakeUnitsets) ApplyStatus(ctx context.Context, unitset *unitsetv1alpha1.UnitsetApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unitset, err error) {
+	if unitset == nil {
+		return nil, fmt.Errorf("unitset provided to Apply must not be nil")
+	}
+	data, err := json.Marshal(unitset)
+	if err != nil {
+		return nil, err
+	}
+	name := unitset.Name
+	if name == nil {
+		return nil, fmt.Errorf("unitset.Name must be provided to Apply")
+	}
+	obj, err := c.Fake.
+		Invokes(testing.NewPatchSubresourceAction(unitsetsResource, c.ns, *name, types.ApplyPatchType, data, "status"), &v1alpha1.Unitset{})
 
 	if obj == nil {
 		return nil, err
