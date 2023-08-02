@@ -29,6 +29,7 @@ type UnitsetSpecApplyConfiguration struct {
 	SourceAffinity        *AffinityNewApplyConfiguration        `json:"source_affinity,omitempty"`
 	Arch                  *ArchApplyConfiguration               `json:"arch,omitempty"`
 	Image                 *ImageVersionApplyConfiguration       `json:"image,omitempty"`
+	ImageRepositoryAddr   *string                               `json:"image_repository_addr,omitempty"`
 	ConfigSets            []ConfigSetApplyConfiguration         `json:"config_sets,omitempty"`
 	EndpointMode          *string                               `json:"endpoint_mode,omitempty"`
 	Ports                 []ContainerPortApplyConfiguration     `json:"ports,omitempty"`
@@ -116,6 +117,14 @@ func (b *UnitsetSpecApplyConfiguration) WithArch(value *ArchApplyConfiguration) 
 // If called multiple times, the Image field is set to the value of the last call.
 func (b *UnitsetSpecApplyConfiguration) WithImage(value *ImageVersionApplyConfiguration) *UnitsetSpecApplyConfiguration {
 	b.Image = value
+	return b
+}
+
+// WithImageRepositoryAddr sets the ImageRepositoryAddr field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the ImageRepositoryAddr field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithImageRepositoryAddr(value string) *UnitsetSpecApplyConfiguration {
+	b.ImageRepositoryAddr = &value
 	return b
 }
 

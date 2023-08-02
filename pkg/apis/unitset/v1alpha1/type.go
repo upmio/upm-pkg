@@ -45,6 +45,8 @@ type UnitsetSpec struct {
 	Arch Arch `json:"arch"`
 	// required: true
 	Image ImageVersion `json:"image"`
+	// ImageRepositoryAddr is the address of image repository
+	ImageRepositoryAddr string `json:"image_repository_addr"`
 	// required: false
 	ConfigSets []ConfigSet `json:"config_sets,omitempty"`
 	// required: false
@@ -135,7 +137,6 @@ type ConfigSet struct {
 
 // ImageVersion 镜像版本
 type ImageVersion struct {
-	ID string `json:"id"`
 	// 镜像类型
 	// required: true
 	// example: infini-gateway

@@ -20,7 +20,6 @@ package v1alpha1
 // ImageVersionApplyConfiguration represents an declarative configuration of the ImageVersion type for use
 // with apply.
 type ImageVersionApplyConfiguration struct {
-	ID    *string `json:"id,omitempty"`
 	Type  *string `json:"type,omitempty"`
 	Major *int    `json:"major,omitempty"`
 	Minor *int    `json:"minor,omitempty"`
@@ -33,14 +32,6 @@ type ImageVersionApplyConfiguration struct {
 // apply.
 func ImageVersion() *ImageVersionApplyConfiguration {
 	return &ImageVersionApplyConfiguration{}
-}
-
-// WithID sets the ID field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ID field is set to the value of the last call.
-func (b *ImageVersionApplyConfiguration) WithID(value string) *ImageVersionApplyConfiguration {
-	b.ID = &value
-	return b
 }
 
 // WithType sets the Type field in the declarative configuration to the given value
