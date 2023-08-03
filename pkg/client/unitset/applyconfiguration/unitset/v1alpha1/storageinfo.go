@@ -20,8 +20,8 @@ package v1alpha1
 // StorageInfoApplyConfiguration represents an declarative configuration of the StorageInfo type for use
 // with apply.
 type StorageInfoApplyConfiguration struct {
-	Volumes      []VolumeRequirementApplyConfiguration `json:"volumes,omitempty"`
-	StorageClass *StorageclassInfoApplyConfiguration   `json:"storageclass,omitempty"`
+	Volumes        []VolumeRequirementApplyConfiguration `json:"volumes,omitempty"`
+	StorageClassID *string                               `json:"storageclass_id,omitempty"`
 }
 
 // StorageInfoApplyConfiguration constructs an declarative configuration of the StorageInfo type for use with
@@ -43,10 +43,10 @@ func (b *StorageInfoApplyConfiguration) WithVolumes(values ...*VolumeRequirement
 	return b
 }
 
-// WithStorageClass sets the StorageClass field in the declarative configuration to the given value
+// WithStorageClassID sets the StorageClassID field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the StorageClass field is set to the value of the last call.
-func (b *StorageInfoApplyConfiguration) WithStorageClass(value *StorageclassInfoApplyConfiguration) *StorageInfoApplyConfiguration {
-	b.StorageClass = value
+// If called multiple times, the StorageClassID field is set to the value of the last call.
+func (b *StorageInfoApplyConfiguration) WithStorageClassID(value string) *StorageInfoApplyConfiguration {
+	b.StorageClassID = &value
 	return b
 }

@@ -50,10 +50,6 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitsetv1alpha1.K8sServiceApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ResourceRequirements"):
 		return &unitsetv1alpha1.ResourceRequirementsApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("Resources"):
-		return &unitsetv1alpha1.ResourcesApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("StorageclassInfo"):
-		return &unitsetv1alpha1.StorageclassInfoApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("StorageInfo"):
 		return &unitsetv1alpha1.StorageInfoApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Unitset"):
@@ -62,8 +58,6 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitsetv1alpha1.UnitsetSpecApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("UnitsetStatus"):
 		return &unitsetv1alpha1.UnitsetStatusApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("UnitSpec"):
-		return &unitsetv1alpha1.UnitSpecApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("VolumeRequirement"):
 		return &unitsetv1alpha1.VolumeRequirementApplyConfiguration{}
 

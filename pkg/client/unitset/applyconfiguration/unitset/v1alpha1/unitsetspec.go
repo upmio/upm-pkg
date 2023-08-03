@@ -17,35 +17,48 @@ limitations under the License.
 
 package v1alpha1
 
+import (
+	v1 "k8s.io/api/core/v1"
+)
+
 // UnitsetSpecApplyConfiguration represents an declarative configuration of the UnitsetSpec type for use
 // with apply.
 type UnitsetSpecApplyConfiguration struct {
-	SharedConfigName      *string                               `json:"shared_config_name,omitempty"`
-	UnbindNode            *bool                                 `json:"unbind_node,omitempty"`
-	InitOnly              *bool                                 `json:"init_only,omitempty"`
-	Affinity              *AffinityApplyConfiguration           `json:"affinity,omitempty"`
-	PodAntiAffinity       *string                               `json:"pod_anti_affinity,omitempty"`
-	ZoneAffinity          *AffinityApplyConfiguration           `json:"zone_affinity,omitempty"`
-	SourceAffinity        *AffinityNewApplyConfiguration        `json:"source_affinity,omitempty"`
-	Arch                  *ArchApplyConfiguration               `json:"arch,omitempty"`
-	Image                 *ImageVersionApplyConfiguration       `json:"image,omitempty"`
-	ImageRepositoryAddr   *string                               `json:"image_repository_addr,omitempty"`
-	ConfigSets            []ConfigSetApplyConfiguration         `json:"config_sets,omitempty"`
-	EndpointMode          *string                               `json:"endpoint_mode,omitempty"`
-	Ports                 []ContainerPortApplyConfiguration     `json:"ports,omitempty"`
-	Options               map[string]string                     `json:"options,omitempty"`
-	Unit                  *UnitSpecApplyConfiguration           `json:"unit,omitempty"`
-	AuthSecret            *string                               `json:"auth_secret,omitempty"`
-	CASecret              *string                               `json:"ca_secret,omitempty"`
-	ExternalSecret        *ExternalSecretInfoApplyConfiguration `json:"external_secret,omitempty"`
-	Service               *K8sServiceApplyConfiguration         `json:"service,omitempty"`
-	ShareProcessNamespace *bool                                 `json:"share_process_namespace,omitempty"`
+	Secret                *string                                 `json:"secret,omitempty"`
+	SharedConfigName      *string                                 `json:"shared_config_name,omitempty"`
+	UnbindNode            *bool                                   `json:"unbind_node,omitempty"`
+	InitOnly              *bool                                   `json:"init_only,omitempty"`
+	Affinity              *AffinityApplyConfiguration             `json:"affinity,omitempty"`
+	PodAntiAffinity       *string                                 `json:"pod_anti_affinity,omitempty"`
+	ZoneAffinity          *AffinityApplyConfiguration             `json:"zone_affinity,omitempty"`
+	SourceAffinity        *AffinityNewApplyConfiguration          `json:"source_affinity,omitempty"`
+	Arch                  *ArchApplyConfiguration                 `json:"arch,omitempty"`
+	Image                 *ImageVersionApplyConfiguration         `json:"image,omitempty"`
+	ImageRepositoryAddr   *string                                 `json:"image_repository_addr,omitempty"`
+	ConfigSets            []ConfigSetApplyConfiguration           `json:"config_sets,omitempty"`
+	EndpointMode          *string                                 `json:"endpoint_mode,omitempty"`
+	Ports                 []ContainerPortApplyConfiguration       `json:"ports,omitempty"`
+	Options               map[string]string                       `json:"options,omitempty"`
+	ResourceRequests      *ResourceRequirementsApplyConfiguration `json:"resource_requests,omitempty"`
+	Env                   []v1.EnvVar                             `json:"env,omitempty"`
+	AuthSecret            *string                                 `json:"auth_secret,omitempty"`
+	ExternalSecret        *ExternalSecretInfoApplyConfiguration   `json:"external_secret,omitempty"`
+	Service               *K8sServiceApplyConfiguration           `json:"service,omitempty"`
+	ShareProcessNamespace *bool                                   `json:"share_process_namespace,omitempty"`
 }
 
 // UnitsetSpecApplyConfiguration constructs an declarative configuration of the UnitsetSpec type for use with
 // apply.
 func UnitsetSpec() *UnitsetSpecApplyConfiguration {
 	return &UnitsetSpecApplyConfiguration{}
+}
+
+// WithSecret sets the Secret field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Secret field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithSecret(value string) *UnitsetSpecApplyConfiguration {
+	b.Secret = &value
+	return b
 }
 
 // WithSharedConfigName sets the SharedConfigName field in the declarative configuration to the given value
@@ -176,11 +189,21 @@ func (b *UnitsetSpecApplyConfiguration) WithOptions(entries map[string]string) *
 	return b
 }
 
-// WithUnit sets the Unit field in the declarative configuration to the given value
+// WithResourceRequests sets the ResourceRequests field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Unit field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithUnit(value *UnitSpecApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.Unit = value
+// If called multiple times, the ResourceRequests field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithResourceRequests(value *ResourceRequirementsApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.ResourceRequests = value
+	return b
+}
+
+// WithEnv adds the given value to the Env field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, values provided by each call will be appended to the Env field.
+func (b *UnitsetSpecApplyConfiguration) WithEnv(values ...v1.EnvVar) *UnitsetSpecApplyConfiguration {
+	for i := range values {
+		b.Env = append(b.Env, values[i])
+	}
 	return b
 }
 
@@ -189,14 +212,6 @@ func (b *UnitsetSpecApplyConfiguration) WithUnit(value *UnitSpecApplyConfigurati
 // If called multiple times, the AuthSecret field is set to the value of the last call.
 func (b *UnitsetSpecApplyConfiguration) WithAuthSecret(value string) *UnitsetSpecApplyConfiguration {
 	b.AuthSecret = &value
-	return b
-}
-
-// WithCASecret sets the CASecret field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the CASecret field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithCASecret(value string) *UnitsetSpecApplyConfiguration {
-	b.CASecret = &value
 	return b
 }
 

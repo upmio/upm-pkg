@@ -30,35 +30,35 @@ func (u *Unitset) Valid() error {
 		errs = append(errs, xerrors.New("image is required"))
 	}
 
-	if u.Spec.Unit.Resources.Requests.Storage != nil {
-		if u.Spec.Unit.Resources.Requests.Storage.StorageClass.ID != "" {
-			if len(u.Spec.Unit.Resources.Requests.Storage.Volumes) == 0 {
+	if u.Spec.ResourceRequests.Storage != nil {
+		if u.Spec.ResourceRequests.Storage.StorageClassID != "" {
+			if len(u.Spec.ResourceRequests.Storage.Volumes) == 0 {
 				errs = append(errs, xerrors.New("volumes is required"))
 			} else {
-				for i := range u.Spec.Unit.Resources.Requests.Storage.Volumes {
-					if u.Spec.Unit.Resources.Requests.Storage.Volumes[i].Capacity <= int64(100) {
+				for i := range u.Spec.ResourceRequests.Storage.Volumes {
+					if u.Spec.ResourceRequests.Storage.Volumes[i].Capacity <= int64(100) {
 						errs = append(errs, xerrors.New("storage volumes capacity do not allow less than or equal to 100"))
 					}
 				}
 			}
 		}
 
-		if len(u.Spec.Unit.Resources.Requests.Storage.Volumes) != 0 {
-			if u.Spec.Unit.Resources.Requests.Storage.StorageClass.ID == "" {
+		if len(u.Spec.ResourceRequests.Storage.Volumes) != 0 {
+			if u.Spec.ResourceRequests.Storage.StorageClassID == "" {
 				errs = append(errs, xerrors.New("has data or log volume, storageclass id is required"))
 			}
 		}
 	}
 
-	if u.Spec.Unit.Resources.Requests.Storage == nil && u.Spec.Unit.Resources.Requests.Cache == nil {
+	if u.Spec.ResourceRequests.Storage == nil && u.Spec.ResourceRequests.Cache == nil {
 		errs = append(errs, xerrors.New("at least one cache volume or data、log volume"))
 	}
 
-	if u.Spec.Unit.Resources.Requests.MiliCPU <= 0 {
+	if u.Spec.ResourceRequests.MiliCPU <= 0 {
 		errs = append(errs, xerrors.New("unit resource milicpu is required"))
 	}
 
-	if u.Spec.Unit.Resources.Requests.Memory <= 0 {
+	if u.Spec.ResourceRequests.Memory <= 0 {
 		errs = append(errs, xerrors.New("unit resource memory is required"))
 	}
 

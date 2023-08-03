@@ -56,9 +56,11 @@ type UnitsetSpec struct {
 	// enum: service, pod_ip
 	EndpointMode string `json:"endpoint_mode"`
 	// required: false
-	Ports   []ContainerPort   `json:"ports"`
-	Options map[string]string `json:"options"`
-	Unit    UnitSpec          `json:"unit"`
+	Ports            []ContainerPort      `json:"ports"`
+	Options          map[string]string    `json:"options"`
+	ResourceRequests ResourceRequirements `json:"resource_requests"`
+	Env              []coreV1.EnvVar      `json:"env"`
+
 	// required: false
 	AuthSecret     string             `json:"auth_secret"`
 	ExternalSecret ExternalSecretInfo `json:"external_secret"`
@@ -74,15 +76,6 @@ type ExternalSecretInfo struct {
 	RootSecret   string `json:"root_secret"`
 }
 
-type UnitSpec struct {
-	Env       []coreV1.EnvVar `json:"env"`
-	Resources Resources       `json:"resources"`
-}
-
-type Resources struct {
-	Requests ResourceRequirements `json:"requests"`
-}
-
 type ResourceRequirements struct {
 	// required: true
 	// minimum: 1
@@ -96,20 +89,11 @@ type ResourceRequirements struct {
 
 type CacheInfo struct {
 	CacheType string `json:"type"`
-	// SizeLimit int64 `json:"size_limit"`
 }
 
 type StorageInfo struct {
-	Volumes      []VolumeRequirement `json:"volumes"`
-	StorageClass StorageclassInfo    `json:"storageclass"`
-}
-
-type StorageclassInfo struct {
-	// required: true
-	ID string `json:"id"`
-	// storageclass 展示名称，前端展示用
-	DisplayName string             `json:"display_name"`
-	Parameters  *map[string]string `json:"parameters"`
+	Volumes        []VolumeRequirement `json:"volumes"`
+	StorageClassID string              `json:"storageclass_id"`
 }
 
 type VolumeRequirement struct {
