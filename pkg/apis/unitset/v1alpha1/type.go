@@ -19,6 +19,9 @@ type Unitset struct {
 
 // UnitsetSpec is the spec for a Unitset resource
 type UnitsetSpec struct {
+	// 软件的管理员用户、密码
+	// 最终会挂在到容器中，挂载目录：/etc/secret-volume
+	Secret string `json:"secret"`
 	// required: false
 	// shared config configmap name
 	// 如果非空，先检查是否存在该cm，如果没有则报错
@@ -57,9 +60,7 @@ type UnitsetSpec struct {
 	Options map[string]string `json:"options"`
 	Unit    UnitSpec          `json:"unit"`
 	// required: false
-	AuthSecret string `json:"auth_secret"`
-	// required: false
-	CASecret       string             `json:"ca_secret"`
+	AuthSecret     string             `json:"auth_secret"`
 	ExternalSecret ExternalSecretInfo `json:"external_secret"`
 	// required: true
 	Service K8sService `json:"service"`
