@@ -6,32 +6,30 @@ import (
 	"sort"
 	"strings"
 	"time"
-
-	unitv4 "tesseract/pkg/apis/unit/v1alpha1"
 )
 
-func GetUnitMetricValue(metrics []unitv4.UnitMetricStatus, key string, comontfilters map[string]string) (string, bool) {
-	for i := range metrics {
-		if metrics[i].Key == key {
-			if len(comontfilters) == 0 {
-				return metrics[i].Value, true
-			}
-
-			support := true
-			for k, v := range comontfilters {
-				if metrics[i].Comment[k] != v {
-					support = false
-					break
-				}
-			}
-			if support {
-				return metrics[i].Value, true
-			}
-		}
-	}
-
-	return "", false
-}
+// func GetUnitMetricValue(metrics []unitv4.UnitMetricStatus, key string, comontfilters map[string]string) (string, bool) {
+// 	for i := range metrics {
+// 		if metrics[i].Key == key {
+// 			if len(comontfilters) == 0 {
+// 				return metrics[i].Value, true
+// 			}
+//
+// 			support := true
+// 			for k, v := range comontfilters {
+// 				if metrics[i].Comment[k] != v {
+// 					support = false
+// 					break
+// 				}
+// 			}
+// 			if support {
+// 				return metrics[i].Value, true
+// 			}
+// 		}
+// 	}
+//
+// 	return "", false
+// }
 
 func ContainsString(slice []string, s string) bool {
 	for _, item := range slice {
@@ -63,7 +61,7 @@ func RemoveString(slice []string, s string) (result []string) {
 
 // MatchUsername username
 func MatchUsername(s string) bool {
-	//pattern := "^[a-zA-Z0-9][a-zA-Z0-9_-]{1,32}$"
+	// pattern := "^[a-zA-Z0-9][a-zA-Z0-9_-]{1,32}$"
 	pattern := "[a-zA-Z0-9\\\\_\\\\-\\\\.]{1,32}$"
 	ok, _ := regexp.MatchString(pattern, s)
 	return ok
@@ -126,7 +124,7 @@ func StringsDiffFunc(ps1, ps2 []string) []string {
 
 func RemoveRepeatElement(s []string) []string {
 	result := make([]string, 0)
-	m := make(map[string]bool) //map的值不重要
+	m := make(map[string]bool) // map的值不重要
 	for _, v := range s {
 		if _, ok := m[v]; !ok {
 			result = append(result, v)
