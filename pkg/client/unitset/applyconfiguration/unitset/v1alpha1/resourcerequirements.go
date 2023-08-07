@@ -17,11 +17,15 @@ limitations under the License.
 
 package v1alpha1
 
+import (
+	resource "k8s.io/apimachinery/pkg/api/resource"
+)
+
 // ResourceRequirementsApplyConfiguration represents an declarative configuration of the ResourceRequirements type for use
 // with apply.
 type ResourceRequirementsApplyConfiguration struct {
-	MiliCPU *int64                         `json:"milicpu,omitempty"`
-	Memory  *int64                         `json:"memory,omitempty"`
+	MiliCPU *resource.Quantity             `json:"milicpu,omitempty"`
+	Memory  *resource.Quantity             `json:"memory,omitempty"`
 	Cache   *CacheInfoApplyConfiguration   `json:"cache,omitempty"`
 	Storage *StorageInfoApplyConfiguration `json:"storage,omitempty"`
 }
@@ -35,7 +39,7 @@ func ResourceRequirements() *ResourceRequirementsApplyConfiguration {
 // WithMiliCPU sets the MiliCPU field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the MiliCPU field is set to the value of the last call.
-func (b *ResourceRequirementsApplyConfiguration) WithMiliCPU(value int64) *ResourceRequirementsApplyConfiguration {
+func (b *ResourceRequirementsApplyConfiguration) WithMiliCPU(value resource.Quantity) *ResourceRequirementsApplyConfiguration {
 	b.MiliCPU = &value
 	return b
 }
@@ -43,7 +47,7 @@ func (b *ResourceRequirementsApplyConfiguration) WithMiliCPU(value int64) *Resou
 // WithMemory sets the Memory field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Memory field is set to the value of the last call.
-func (b *ResourceRequirementsApplyConfiguration) WithMemory(value int64) *ResourceRequirementsApplyConfiguration {
+func (b *ResourceRequirementsApplyConfiguration) WithMemory(value resource.Quantity) *ResourceRequirementsApplyConfiguration {
 	b.Memory = &value
 	return b
 }

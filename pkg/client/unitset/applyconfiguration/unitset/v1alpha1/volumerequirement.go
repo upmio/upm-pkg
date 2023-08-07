@@ -17,12 +17,16 @@ limitations under the License.
 
 package v1alpha1
 
+import (
+	resource "k8s.io/apimachinery/pkg/api/resource"
+)
+
 // VolumeRequirementApplyConfiguration represents an declarative configuration of the VolumeRequirement type for use
 // with apply.
 type VolumeRequirementApplyConfiguration struct {
-	Capacity  *int64  `json:"capacity,omitempty"`
-	Type      *string `json:"type,omitempty"`
-	MountPath *string `json:"mount_path,omitempty"`
+	Capacity  *resource.Quantity `json:"capacity,omitempty"`
+	Type      *string            `json:"type,omitempty"`
+	MountPath *string            `json:"mount_path,omitempty"`
 }
 
 // VolumeRequirementApplyConfiguration constructs an declarative configuration of the VolumeRequirement type for use with
@@ -34,7 +38,7 @@ func VolumeRequirement() *VolumeRequirementApplyConfiguration {
 // WithCapacity sets the Capacity field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Capacity field is set to the value of the last call.
-func (b *VolumeRequirementApplyConfiguration) WithCapacity(value int64) *VolumeRequirementApplyConfiguration {
+func (b *VolumeRequirementApplyConfiguration) WithCapacity(value resource.Quantity) *VolumeRequirementApplyConfiguration {
 	b.Capacity = &value
 	return b
 }
