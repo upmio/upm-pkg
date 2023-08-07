@@ -54,13 +54,13 @@ func (u *Unitset) Valid() error {
 		errs = append(errs, xerrors.New("at least one cache volume or data、log volume"))
 	}
 
-	if u.Spec.ResourceRequests.MiliCPU <= 0 {
-		errs = append(errs, xerrors.New("unit resource milicpu is required"))
-	}
-
-	if u.Spec.ResourceRequests.Memory <= 0 {
-		errs = append(errs, xerrors.New("unit resource memory is required"))
-	}
+	// if u.Spec.ResourceRequests.MiliCPU <= 0 {
+	// 	errs = append(errs, xerrors.New("unit resource milicpu is required"))
+	// }
+	//
+	// if u.Spec.ResourceRequests.Memory <= 0 {
+	// 	errs = append(errs, xerrors.New("unit resource memory is required"))
+	// }
 
 	if u.Spec.Service.Type == "" {
 		errs = append(errs, xerrors.New("k8s service type is required, support:['none','ClusterIP','NodePort','LoadBalancer']"))
