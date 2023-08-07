@@ -2,6 +2,7 @@ package v1alpha1
 
 import (
 	coreV1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -79,12 +80,12 @@ type ExternalSecretInfo struct {
 type ResourceRequirements struct {
 	// required: true
 	// minimum: 1
-	MiliCPU int64 `json:"milicpu"`
+	MiliCPU resource.Quantity `json:"milicpu"`
 	// required: true
 	// minimum: 1
-	Memory  int64        `json:"memory"`
-	Cache   *CacheInfo   `json:"cache,omitempty"`
-	Storage *StorageInfo `json:"storage,omitempty"`
+	Memory  resource.Quantity `json:"memory"`
+	Cache   *CacheInfo        `json:"cache,omitempty"`
+	Storage *StorageInfo      `json:"storage,omitempty"`
 }
 
 type CacheInfo struct {
@@ -97,9 +98,9 @@ type StorageInfo struct {
 }
 
 type VolumeRequirement struct {
-	Capacity  int64  `json:"capacity"`
-	Type      string `json:"type"`
-	MountPath string `json:"mount_path"`
+	Capacity  resource.Quantity `json:"capacity"`
+	Type      string            `json:"type"`
+	MountPath string            `json:"mount_path"`
 }
 
 type ContainerPort struct {
