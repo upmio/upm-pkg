@@ -20,6 +20,7 @@ type Unitset struct {
 
 // UnitsetSpec is the spec for a Unitset resource
 type UnitsetSpec struct {
+	Action Action `json:"action"`
 	// 软件的管理员用户、密码
 	// 最终会挂在到容器中，挂载目录：/etc/secret-volume
 	Secret string `json:"secret"`

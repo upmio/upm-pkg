@@ -24,6 +24,7 @@ import (
 // UnitsetSpecApplyConfiguration represents an declarative configuration of the UnitsetSpec type for use
 // with apply.
 type UnitsetSpecApplyConfiguration struct {
+	Action                *ActionApplyConfiguration               `json:"action,omitempty"`
 	Secret                *string                                 `json:"secret,omitempty"`
 	SharedConfigName      *string                                 `json:"shared_config_name,omitempty"`
 	UnbindNode            *bool                                   `json:"unbind_node,omitempty"`
@@ -51,6 +52,14 @@ type UnitsetSpecApplyConfiguration struct {
 // apply.
 func UnitsetSpec() *UnitsetSpecApplyConfiguration {
 	return &UnitsetSpecApplyConfiguration{}
+}
+
+// WithAction sets the Action field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Action field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithAction(value *ActionApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.Action = value
+	return b
 }
 
 // WithSecret sets the Secret field in the declarative configuration to the given value

@@ -28,6 +28,8 @@ import (
 func ForKind(kind schema.GroupVersionKind) interface{} {
 	switch kind {
 	// Group=unitset.bsgchina.com, Version=v1alpha1
+	case v1alpha1.SchemeGroupVersion.WithKind("Action"):
+		return &unitsetv1alpha1.ActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Affinity"):
 		return &unitsetv1alpha1.AffinityApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("AffinityNew"):
@@ -40,6 +42,8 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitsetv1alpha1.ConfigSetApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ContainerPort"):
 		return &unitsetv1alpha1.ContainerPortApplyConfiguration{}
+	case v1alpha1.SchemeGroupVersion.WithKind("DeleteAction"):
+		return &unitsetv1alpha1.DeleteActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ErrMsg"):
 		return &unitsetv1alpha1.ErrMsgApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ExternalSecretInfo"):
