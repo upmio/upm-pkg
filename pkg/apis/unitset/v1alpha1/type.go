@@ -72,6 +72,15 @@ type UnitsetSpec struct {
 	ShareProcessNamespace *bool `json:"share_process_namespace"`
 }
 
+type Action struct {
+	Delete *DeleteAction `json:"delete,omitempty"`
+}
+
+type DeleteAction struct {
+	Force   bool               `json:"force,omitempty"`
+	PreStop *coreV1.ExecAction `json:"exec"`
+}
+
 type ExternalSecretInfo struct {
 	Organization string `json:"organization"`
 	RootSecret   string `json:"root_secret"`
