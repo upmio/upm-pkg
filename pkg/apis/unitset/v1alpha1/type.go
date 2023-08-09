@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
 	coreV1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -74,7 +75,7 @@ type UnitsetSpec struct {
 }
 
 type Action struct {
-	Delete *DeleteAction `json:"delete,omitempty"`
+	Delete *unitv1alpha1.DeleteAction `json:"delete,omitempty"`
 }
 
 type DeleteAction struct {

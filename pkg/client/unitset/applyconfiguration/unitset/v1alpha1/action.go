@@ -17,10 +17,14 @@ limitations under the License.
 
 package v1alpha1
 
+import (
+	v1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
+)
+
 // ActionApplyConfiguration represents an declarative configuration of the Action type for use
 // with apply.
 type ActionApplyConfiguration struct {
-	Delete *DeleteActionApplyConfiguration `json:"delete,omitempty"`
+	Delete *v1alpha1.DeleteAction `json:"delete,omitempty"`
 }
 
 // ActionApplyConfiguration constructs an declarative configuration of the Action type for use with
@@ -32,7 +36,7 @@ func Action() *ActionApplyConfiguration {
 // WithDelete sets the Delete field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Delete field is set to the value of the last call.
-func (b *ActionApplyConfiguration) WithDelete(value *DeleteActionApplyConfiguration) *ActionApplyConfiguration {
-	b.Delete = value
+func (b *ActionApplyConfiguration) WithDelete(value v1alpha1.DeleteAction) *ActionApplyConfiguration {
+	b.Delete = &value
 	return b
 }

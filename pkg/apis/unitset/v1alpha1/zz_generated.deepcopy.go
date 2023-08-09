@@ -21,6 +21,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
 	v1 "k8s.io/api/core/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
@@ -30,7 +31,7 @@ func (in *Action) DeepCopyInto(out *Action) {
 	*out = *in
 	if in.Delete != nil {
 		in, out := &in.Delete, &out.Delete
-		*out = new(DeleteAction)
+		*out = new(unitv1alpha1.DeleteAction)
 		(*in).DeepCopyInto(*out)
 	}
 	return
