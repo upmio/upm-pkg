@@ -1,5 +1,5 @@
 package unitset
 
 const (
-	GroupName = "unitset.bsgchina.com"
+	GroupName = "crd.bsgchina.com"
 )
