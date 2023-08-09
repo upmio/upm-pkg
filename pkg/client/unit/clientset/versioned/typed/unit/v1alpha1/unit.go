@@ -19,9 +19,12 @@ package v1alpha1
 
 import (
 	"context"
+	json "encoding/json"
+	"fmt"
 	"time"
 
 	v1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
+	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unit/applyconfiguration/unit/v1alpha1"
 	scheme "github.com/upmio/upm-pkg/pkg/client/unit/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
@@ -46,6 +49,8 @@ type UnitInterface interface {
 	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.UnitList, error)
 	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
 	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Unit, err error)
+	Apply(ctx context.Context, unit *unitv1alpha1.UnitApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unit, err error)
+	ApplyStatus(ctx context.Context, unit *unitv1alpha1.UnitApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unit, err error)
 	UnitExpansion
 }
 
@@ -187,6 +192,62 @@ func (c *units) Patch(ctx context.Context, name string, pt types.PatchType, data
 		Name(name).
 		SubResource(subresources...).
 		VersionedParams(&opts, scheme.ParameterCodec).
+		Body(data).
+		Do(ctx).
+		Into(result)
+	return
+}
+
+// Apply takes the given apply declarative configuration, applies it and returns the applied unit.
+func (c *units) Apply(ctx context.Context, unit *unitv1alpha1.UnitApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unit, err error) {
+	if unit == nil {
+		return nil, fmt.Errorf("unit provided to Apply must not be nil")
+	}
+	patchOpts := opts.ToPatchOptions()
+	data, err := json.Marshal(unit)
+	if err != nil {
+		return nil, err
+	}
+	name := unit.Name
+	if name == nil {
+		return nil, fmt.Errorf("unit.Name must be provided to Apply")
+	}
+	result = &v1alpha1.Unit{}
+	err = c.client.Patch(types.ApplyPatchType).
+		Namespace(c.ns).
+		Resource("units").
+		Name(*name).
+		VersionedParams(&patchOpts, scheme.ParameterCodec).
+		Body(data).
+		Do(ctx).
+		Into(result)
+	return
+}
+
+// ApplyStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
+func (c *units) ApplyStatus(ctx context.Context, unit *unitv1alpha1.UnitApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unit, err error) {
+	if unit == nil {
+		return nil, fmt.Errorf("unit provided to Apply must not be nil")
+	}
+	patchOpts := opts.ToPatchOptions()
+	data, err := json.Marshal(unit)
+	if err != nil {
+		return nil, err
+	}
+
+	name := unit.Name
+	if name == nil {
+		return nil, fmt.Errorf("unit.Name must be provided to Apply")
+	}
+
+	result = &v1alpha1.Unit{}
+	err = c.client.Patch(types.ApplyPatchType).
+		Namespace(c.ns).
+		Resource("units").
+		Name(*name).
+		SubResource("status").
+		VersionedParams(&patchOpts, scheme.ParameterCodec).
 		Body(data).
 		Do(ctx).
 		Into(result)

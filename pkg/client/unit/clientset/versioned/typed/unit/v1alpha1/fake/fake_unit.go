@@ -19,11 +19,13 @@ package fake
 
 import (
 	"context"
+	json "encoding/json"
+	"fmt"
 
 	v1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
+	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unit/applyconfiguration/unit/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -35,9 +37,9 @@ type FakeUnits struct {
 	ns   string
 }
 
-var unitsResource = schema.GroupVersionResource{Group: "unit.bsgchina.com", Version: "v1alpha1", Resource: "units"}
+var unitsResource = v1alpha1.SchemeGroupVersion.WithResource("units")
 
-var unitsKind = schema.GroupVersionKind{Group: "unit.bsgchina.com", Version: "v1alpha1", Kind: "Unit"}
+var unitsKind = v1alpha1.SchemeGroupVersion.WithKind("Unit")
 
 // Get takes name of the unit, and returns the corresponding unit object, and an error if there is any.
 func (c *FakeUnits) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Unit, err error) {
@@ -116,7 +118,7 @@ func (c *FakeUnits) UpdateStatus(ctx context.Context, unit *v1alpha1.Unit, opts 
 // Delete takes name of the unit and deletes it. Returns an error if one occurs.
 func (c *FakeUnits) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(unitsResource, c.ns, name), &v1alpha1.Unit{})
+		Invokes(testing.NewDeleteActionWithOptions(unitsResource, c.ns, name, opts), &v1alpha1.Unit{})
 
 	return err
 }
@@ -133,6 +135,51 @@ func (c *FakeUnits) DeleteCollection(ctx context.Context, opts v1.DeleteOptions,
 func (c *FakeUnits) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Unit, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(unitsResource, c.ns, name, pt, data, subresources...), &v1alpha1.Unit{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.Unit), err
+}
+
+// Apply takes the given apply declarative configuration, applies it and returns the applied unit.
+func (c *FakeUnits) Apply(ctx context.Context, unit *unitv1alpha1.UnitApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unit, err error) {
+	if unit == nil {
+		return nil, fmt.Errorf("unit provided to Apply must not be nil")
+	}
+	data, err := json.Marshal(unit)
+	if err != nil {
+		return nil, err
+	}
+	name := unit.Name
+	if name == nil {
+		return nil, fmt.Errorf("unit.Name must be provided to Apply")
+	}
+	obj, err := c.Fake.
+		Invokes(testing.NewPatchSubresourceAction(unitsResource, c.ns, *name, types.ApplyPatchType, data), &v1alpha1.Unit{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.Unit), err
+}
+
+// ApplyStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
+func (c *FakeUnits) ApplyStatus(ctx context.Context, unit *unitv1alpha1.UnitApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Unit, err error) {
+	if unit == nil {
+		return nil, fmt.Errorf("unit provided to Apply must not be nil")
+	}
+	data, err := json.Marshal(unit)
+	if err != nil {
+		return nil, err
+	}
+	name := unit.Name
+	if name == nil {
+		return nil, fmt.Errorf("unit.Name must be provided to Apply")
+	}
+	obj, err := c.Fake.
+		Invokes(testing.NewPatchSubresourceAction(unitsResource, c.ns, *name, types.ApplyPatchType, data, "status"), &v1alpha1.Unit{})
 
 	if obj == nil {
 		return nil, err
