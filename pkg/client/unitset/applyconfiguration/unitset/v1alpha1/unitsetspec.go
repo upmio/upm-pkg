@@ -24,28 +24,22 @@ import (
 // UnitsetSpecApplyConfiguration represents an declarative configuration of the UnitsetSpec type for use
 // with apply.
 type UnitsetSpecApplyConfiguration struct {
-	Action                *ActionApplyConfiguration               `json:"action,omitempty"`
-	Secret                *string                                 `json:"secret,omitempty"`
-	SharedConfigName      *string                                 `json:"shared_config_name,omitempty"`
-	UnbindNode            *bool                                   `json:"unbind_node,omitempty"`
-	InitOnly              *bool                                   `json:"init_only,omitempty"`
-	Affinity              *AffinityApplyConfiguration             `json:"affinity,omitempty"`
-	PodAntiAffinity       *string                                 `json:"pod_anti_affinity,omitempty"`
-	ZoneAffinity          *AffinityApplyConfiguration             `json:"zone_affinity,omitempty"`
-	SourceAffinity        *AffinityNewApplyConfiguration          `json:"source_affinity,omitempty"`
-	Arch                  *ArchApplyConfiguration                 `json:"arch,omitempty"`
-	Image                 *ImageVersionApplyConfiguration         `json:"image,omitempty"`
-	ImageRepositoryAddr   *string                                 `json:"image_repository_addr,omitempty"`
-	ConfigSets            []ConfigSetApplyConfiguration           `json:"config_sets,omitempty"`
-	EndpointMode          *string                                 `json:"endpoint_mode,omitempty"`
-	Ports                 []ContainerPortApplyConfiguration       `json:"ports,omitempty"`
-	Options               map[string]string                       `json:"options,omitempty"`
-	ResourceRequests      *ResourceRequirementsApplyConfiguration `json:"resource_requests,omitempty"`
-	Env                   []v1.EnvVar                             `json:"env,omitempty"`
-	AuthSecret            *string                                 `json:"auth_secret,omitempty"`
-	ExternalSecret        *ExternalSecretInfoApplyConfiguration   `json:"external_secret,omitempty"`
-	Service               *K8sServiceApplyConfiguration           `json:"service,omitempty"`
-	ShareProcessNamespace *bool                                   `json:"share_process_namespace,omitempty"`
+	Action                *ActionApplyConfiguration             `json:"action,omitempty"`
+	SharedConfigName      *string                               `json:"sharedConfigName,omitempty"`
+	UnbindNode            *bool                                 `json:"unbindNode,omitempty"`
+	Startup               *bool                                 `json:"startup,omitempty"`
+	Affinity              *v1.Affinity                          `json:"affinity,omitempty"`
+	Architecture          *ArchitectureApplyConfiguration       `json:"architecture,omitempty"`
+	Image                 *ImageVersionApplyConfiguration       `json:"image,omitempty"`
+	Ports                 []ContainerPortApplyConfiguration     `json:"ports,omitempty"`
+	Env                   []v1.EnvVar                           `json:"env,omitempty"`
+	ExternalSecret        *ExternalSecretInfoApplyConfiguration `json:"externalSecret,omitempty"`
+	Options               map[string]string                     `json:"options,omitempty"`
+	Service               *K8sServiceApplyConfiguration         `json:"service,omitempty"`
+	ShareProcessNamespace *bool                                 `json:"share_process_namespace,omitempty"`
+	Resource              *v1.ResourceRequirements              `json:"resource,omitempty"`
+	Volumes               []v1.Volume                           `json:"volumes,omitempty"`
+	VolumeMounts          []v1.VolumeMount                      `json:"volumeMounts,omitempty"`
 }
 
 // UnitsetSpecApplyConfiguration constructs an declarative configuration of the UnitsetSpec type for use with
@@ -59,14 +53,6 @@ func UnitsetSpec() *UnitsetSpecApplyConfiguration {
 // If called multiple times, the Action field is set to the value of the last call.
 func (b *UnitsetSpecApplyConfiguration) WithAction(value *ActionApplyConfiguration) *UnitsetSpecApplyConfiguration {
 	b.Action = value
-	return b
-}
-
-// WithSecret sets the Secret field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Secret field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithSecret(value string) *UnitsetSpecApplyConfiguration {
-	b.Secret = &value
 	return b
 }
 
@@ -86,51 +72,27 @@ func (b *UnitsetSpecApplyConfiguration) WithUnbindNode(value bool) *UnitsetSpecA
 	return b
 }
 
-// WithInitOnly sets the InitOnly field in the declarative configuration to the given value
+// WithStartup sets the Startup field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the InitOnly field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithInitOnly(value bool) *UnitsetSpecApplyConfiguration {
-	b.InitOnly = &value
+// If called multiple times, the Startup field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithStartup(value bool) *UnitsetSpecApplyConfiguration {
+	b.Startup = &value
 	return b
 }
 
 // WithAffinity sets the Affinity field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Affinity field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithAffinity(value *AffinityApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.Affinity = value
+func (b *UnitsetSpecApplyConfiguration) WithAffinity(value v1.Affinity) *UnitsetSpecApplyConfiguration {
+	b.Affinity = &value
 	return b
 }
 
-// WithPodAntiAffinity sets the PodAntiAffinity field in the declarative configuration to the given value
+// WithArchitecture sets the Architecture field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the PodAntiAffinity field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithPodAntiAffinity(value string) *UnitsetSpecApplyConfiguration {
-	b.PodAntiAffinity = &value
-	return b
-}
-
-// WithZoneAffinity sets the ZoneAffinity field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ZoneAffinity field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithZoneAffinity(value *AffinityApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.ZoneAffinity = value
-	return b
-}
-
-// WithSourceAffinity sets the SourceAffinity field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the SourceAffinity field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithSourceAffinity(value *AffinityNewApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.SourceAffinity = value
-	return b
-}
-
-// WithArch sets the Arch field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Arch field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithArch(value *ArchApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.Arch = value
+// If called multiple times, the Architecture field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithArchitecture(value *ArchitectureApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.Architecture = value
 	return b
 }
 
@@ -139,35 +101,6 @@ func (b *UnitsetSpecApplyConfiguration) WithArch(value *ArchApplyConfiguration) 
 // If called multiple times, the Image field is set to the value of the last call.
 func (b *UnitsetSpecApplyConfiguration) WithImage(value *ImageVersionApplyConfiguration) *UnitsetSpecApplyConfiguration {
 	b.Image = value
-	return b
-}
-
-// WithImageRepositoryAddr sets the ImageRepositoryAddr field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ImageRepositoryAddr field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithImageRepositoryAddr(value string) *UnitsetSpecApplyConfiguration {
-	b.ImageRepositoryAddr = &value
-	return b
-}
-
-// WithConfigSets adds the given value to the ConfigSets field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the ConfigSets field.
-func (b *UnitsetSpecApplyConfiguration) WithConfigSets(values ...*ConfigSetApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	for i := range values {
-		if values[i] == nil {
-			panic("nil value passed to WithConfigSets")
-		}
-		b.ConfigSets = append(b.ConfigSets, *values[i])
-	}
-	return b
-}
-
-// WithEndpointMode sets the EndpointMode field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the EndpointMode field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithEndpointMode(value string) *UnitsetSpecApplyConfiguration {
-	b.EndpointMode = &value
 	return b
 }
 
@@ -181,6 +114,24 @@ func (b *UnitsetSpecApplyConfiguration) WithPorts(values ...*ContainerPortApplyC
 		}
 		b.Ports = append(b.Ports, *values[i])
 	}
+	return b
+}
+
+// WithEnv adds the given value to the Env field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, values provided by each call will be appended to the Env field.
+func (b *UnitsetSpecApplyConfiguration) WithEnv(values ...v1.EnvVar) *UnitsetSpecApplyConfiguration {
+	for i := range values {
+		b.Env = append(b.Env, values[i])
+	}
+	return b
+}
+
+// WithExternalSecret sets the ExternalSecret field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the ExternalSecret field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithExternalSecret(value *ExternalSecretInfoApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.ExternalSecret = value
 	return b
 }
 
@@ -198,40 +149,6 @@ func (b *UnitsetSpecApplyConfiguration) WithOptions(entries map[string]string) *
 	return b
 }
 
-// WithResourceRequests sets the ResourceRequests field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ResourceRequests field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithResourceRequests(value *ResourceRequirementsApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.ResourceRequests = value
-	return b
-}
-
-// WithEnv adds the given value to the Env field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the Env field.
-func (b *UnitsetSpecApplyConfiguration) WithEnv(values ...v1.EnvVar) *UnitsetSpecApplyConfiguration {
-	for i := range values {
-		b.Env = append(b.Env, values[i])
-	}
-	return b
-}
-
-// WithAuthSecret sets the AuthSecret field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the AuthSecret field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithAuthSecret(value string) *UnitsetSpecApplyConfiguration {
-	b.AuthSecret = &value
-	return b
-}
-
-// WithExternalSecret sets the ExternalSecret field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ExternalSecret field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithExternalSecret(value *ExternalSecretInfoApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.ExternalSecret = value
-	return b
-}
-
 // WithService sets the Service field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Service field is set to the value of the last call.
@@ -245,5 +162,33 @@ func (b *UnitsetSpecApplyConfiguration) WithService(value *K8sServiceApplyConfig
 // If called multiple times, the ShareProcessNamespace field is set to the value of the last call.
 func (b *UnitsetSpecApplyConfiguration) WithShareProcessNamespace(value bool) *UnitsetSpecApplyConfiguration {
 	b.ShareProcessNamespace = &value
+	return b
+}
+
+// WithResource sets the Resource field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Resource field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithResource(value v1.ResourceRequirements) *UnitsetSpecApplyConfiguration {
+	b.Resource = &value
+	return b
+}
+
+// WithVolumes adds the given value to the Volumes field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, values provided by each call will be appended to the Volumes field.
+func (b *UnitsetSpecApplyConfiguration) WithVolumes(values ...v1.Volume) *UnitsetSpecApplyConfiguration {
+	for i := range values {
+		b.Volumes = append(b.Volumes, values[i])
+	}
+	return b
+}
+
+// WithVolumeMounts adds the given value to the VolumeMounts field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, values provided by each call will be appended to the VolumeMounts field.
+func (b *UnitsetSpecApplyConfiguration) WithVolumeMounts(values ...v1.VolumeMount) *UnitsetSpecApplyConfiguration {
+	for i := range values {
+		b.VolumeMounts = append(b.VolumeMounts, values[i])
+	}
 	return b
 }

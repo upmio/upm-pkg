@@ -22,56 +22,35 @@ type Unitset struct {
 // UnitsetSpec is the spec for a Unitset resource
 type UnitsetSpec struct {
 	Action Action `json:"action"`
-	// 软件的管理员用户、密码
-	// 最终会挂在到容器中，挂载目录：/etc/secret-volume
-	Secret string `json:"secret"`
 	// required: false
 	// shared config configmap name
 	// 如果非空，先检查是否存在该cm，如果没有则报错
 	// 则使用该configmap作为shared config
-	SharedConfigName string `json:"shared_config_name"`
+	SharedConfigName string `json:"sharedConfigName"`
 	// 是否与node绑定，默认false=绑定
 	// required: false
-	UnbindNode bool `json:"unbind_node,omitempty"`
-	// 是否只做初始化,false:初始化并且启动; true:仅初始化,不启动
+	UnbindNode bool `json:"unbindNode,omitempty"`
+	// 原InitOnly: true: 服务启动；false: 不用启动
+	Startup  *bool            `json:"startup"`
+	Affinity *coreV1.Affinity `json:"affinity"`
 	// required: true
-	InitOnly *bool `json:"init_only"`
-	// 容器亲缘性，值为有亲缘性需求的service id
-	// required: false
-	Affinity Affinity `json:"affinity"`
-	// required: false
-	// enum: preferred, required
-	// default: required
-	PodAntiAffinity string `json:"pod_anti_affinity"`
-	// required: true
-	ZoneAffinity Affinity `json:"zone_affinity"`
-	// required: false
-	SourceAffinity AffinityNew `json:"source_affinity"`
-	// required: true
-	Arch Arch `json:"arch"`
+	Architecture Architecture `json:"architecture"`
 	// required: true
 	Image ImageVersion `json:"image"`
-	// ImageRepositoryAddr is the address of image repository
-	ImageRepositoryAddr string `json:"image_repository_addr"`
 	// required: false
-	ConfigSets []ConfigSet `json:"config_sets,omitempty"`
-	// required: false
-	// enum: service, pod_ip
-	EndpointMode string `json:"endpoint_mode"`
-	// required: false
-	Ports            []ContainerPort      `json:"ports"`
-	Options          map[string]string    `json:"options"`
-	ResourceRequests ResourceRequirements `json:"resource_requests"`
-	Env              []coreV1.EnvVar      `json:"env"`
-
-	// required: false
-	AuthSecret     string             `json:"auth_secret"`
-	ExternalSecret ExternalSecretInfo `json:"external_secret"`
+	Ports          []ContainerPort    `json:"ports"`
+	Env            []coreV1.EnvVar    `json:"env"`
+	ExternalSecret ExternalSecretInfo `json:"externalSecret"`
+	Options        map[string]string  `json:"options"`
 	// required: true
 	Service K8sService `json:"service"`
 	// required: false
 	// default: true
 	ShareProcessNamespace *bool `json:"share_process_namespace"`
+	// 主容器资源配置
+	Resource     coreV1.ResourceRequirements `json:"resource"`
+	Volumes      []coreV1.Volume             `json:"volumes"`
+	VolumeMounts []coreV1.VolumeMount        `json:"volumeMounts"`
 }
 
 type Action struct {
@@ -160,15 +139,12 @@ type ImageVersion struct {
 	Arch string `json:"arch"`
 }
 
-type Arch struct {
+type Architecture struct {
 	// required: true
 	Nodes int `json:"nodes"`
-	// 服务分片数量
-	Shards int `json:"shards"`
 	// required: true
 	// enum: single,clone,replication_async,replication_semi_sync
 	Mode string `json:"mode"`
-	Desc string `json:"desc"`
 }
 
 // Affinity ...

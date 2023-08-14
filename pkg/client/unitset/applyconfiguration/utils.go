@@ -30,16 +30,8 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 	// Group=unitset.bsgchina.com, Version=v1alpha1
 	case v1alpha1.SchemeGroupVersion.WithKind("Action"):
 		return &unitsetv1alpha1.ActionApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("Affinity"):
-		return &unitsetv1alpha1.AffinityApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("AffinityNew"):
-		return &unitsetv1alpha1.AffinityNewApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("Arch"):
-		return &unitsetv1alpha1.ArchApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("CacheInfo"):
-		return &unitsetv1alpha1.CacheInfoApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("ConfigSet"):
-		return &unitsetv1alpha1.ConfigSetApplyConfiguration{}
+	case v1alpha1.SchemeGroupVersion.WithKind("Architecture"):
+		return &unitsetv1alpha1.ArchitectureApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ContainerPort"):
 		return &unitsetv1alpha1.ContainerPortApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ErrMsg"):
@@ -50,18 +42,12 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitsetv1alpha1.ImageVersionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("K8sService"):
 		return &unitsetv1alpha1.K8sServiceApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("ResourceRequirements"):
-		return &unitsetv1alpha1.ResourceRequirementsApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("StorageInfo"):
-		return &unitsetv1alpha1.StorageInfoApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Unitset"):
 		return &unitsetv1alpha1.UnitsetApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("UnitsetSpec"):
 		return &unitsetv1alpha1.UnitsetSpecApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("UnitsetStatus"):
 		return &unitsetv1alpha1.UnitsetStatusApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("VolumeRequirement"):
-		return &unitsetv1alpha1.VolumeRequirementApplyConfiguration{}
 
 	}
 	return nil

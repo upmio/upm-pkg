@@ -2,33 +2,32 @@ package v1alpha1
 
 import (
 	"fmt"
-	"golang.org/x/xerrors"
 	utilErrors "k8s.io/apimachinery/pkg/util/errors"
 )
 
 func (u *Unitset) Valid() error {
 	errs := []error{}
 
-	if u.Spec.InitOnly == nil {
-		errs = append(errs, xerrors.New("spec.init_only is required"))
-	}
-
-	if u.Spec.Arch.Mode == "" {
-		errs = append(errs, xerrors.New("arch mode is required"))
-	}
-
-	if u.Spec.Arch.Nodes <= 0 {
-		errs = append(errs, xerrors.New("spec.arch.nodes is required"))
-	}
-
-	if (u.Spec.ZoneAffinity.Preferred == nil && len(u.Spec.ZoneAffinity.Preferred) == 0) &&
-		(u.Spec.ZoneAffinity.Required == nil && len(u.Spec.ZoneAffinity.Required) == 0) {
-		errs = append(errs, xerrors.New("ZoneAffinity.Preferred or ZoneAffinity.Required is required"))
-	}
-
-	if u.Spec.Image.Type == "" {
-		errs = append(errs, xerrors.New("image is required"))
-	}
+	// if u.Spec.InitOnly == nil {
+	// 	errs = append(errs, xerrors.New("spec.init_only is required"))
+	// }
+	//
+	// if u.Spec.Arch.Mode == "" {
+	// 	errs = append(errs, xerrors.New("arch mode is required"))
+	// }
+	//
+	// if u.Spec.Arch.Nodes <= 0 {
+	// 	errs = append(errs, xerrors.New("spec.arch.nodes is required"))
+	// }
+	//
+	// if (u.Spec.ZoneAffinity.Preferred == nil && len(u.Spec.ZoneAffinity.Preferred) == 0) &&
+	// 	(u.Spec.ZoneAffinity.Required == nil && len(u.Spec.ZoneAffinity.Required) == 0) {
+	// 	errs = append(errs, xerrors.New("ZoneAffinity.Preferred or ZoneAffinity.Required is required"))
+	// }
+	//
+	// if u.Spec.Image.Type == "" {
+	// 	errs = append(errs, xerrors.New("image is required"))
+	// }
 
 	// if u.Spec.ResourceRequests.Storage != nil {
 	// 	if u.Spec.ResourceRequests.Storage.StorageClassID != "" {
@@ -50,9 +49,9 @@ func (u *Unitset) Valid() error {
 	// 	}
 	// }
 
-	if u.Spec.ResourceRequests.Storage == nil && u.Spec.ResourceRequests.Cache == nil {
-		errs = append(errs, xerrors.New("at least one cache volume or data、log volume"))
-	}
+	// if u.Spec.ResourceRequests.Storage == nil && u.Spec.ResourceRequests.Cache == nil {
+	// 	errs = append(errs, xerrors.New("at least one cache volume or data、log volume"))
+	// }
 
 	// if u.Spec.ResourceRequests.MiliCPU <= 0 {
 	// 	errs = append(errs, xerrors.New("unit resource milicpu is required"))
@@ -62,14 +61,14 @@ func (u *Unitset) Valid() error {
 	// 	errs = append(errs, xerrors.New("unit resource memory is required"))
 	// }
 
-	if u.Spec.Service.Type == "" {
-		errs = append(errs, xerrors.New("k8s service type is required, support:['none','ClusterIP','NodePort','LoadBalancer']"))
-	} else {
-		if u.Spec.Service.Type != "none" && u.Spec.Service.Type != "ClusterIP" && u.Spec.Service.Type != "NodePort" && u.Spec.Service.Type != "LoadBalancer" {
-			errs = append(errs, xerrors.Errorf("not support the ingress methods:[%s] for a Kubernetes service,"+
-				"only support:['none','ClusterIP','NodePort','LoadBalancer']", u.Spec.Service.Type))
-		}
-	}
+	// if u.Spec.Service.Type == "" {
+	// 	errs = append(errs, xerrors.New("k8s service type is required, support:['none','ClusterIP','NodePort','LoadBalancer']"))
+	// } else {
+	// 	if u.Spec.Service.Type != "none" && u.Spec.Service.Type != "ClusterIP" && u.Spec.Service.Type != "NodePort" && u.Spec.Service.Type != "LoadBalancer" {
+	// 		errs = append(errs, xerrors.Errorf("not support the ingress methods:[%s] for a Kubernetes service,"+
+	// 			"only support:['none','ClusterIP','NodePort','LoadBalancer']", u.Spec.Service.Type))
+	// 	}
+	// }
 
 	return utilErrors.NewAggregate(errs)
 }
@@ -82,9 +81,9 @@ func GetUnitsetPodTemplateName(unitset Unitset) string {
 
 // GetUnitImageWithImageRepositoryAddr
 // e.g.: repositoryAddr/mysql:8.0.34.1-amd64
-func GetUnitImageWithImageRepositoryAddr(unitset Unitset) string {
-	return fmt.Sprintf("%s/%s", unitset.Spec.ImageRepositoryAddr, unitset.Spec.Image.TypeWithVersionAndArchByColon())
-}
+// func GetUnitImageWithImageRepositoryAddr(unitset Unitset) string {
+// 	return fmt.Sprintf("%s/%s", unitset.Spec.ImageRepositoryAddr, unitset.Spec.Image.TypeWithVersionAndArchByColon())
+// }
 
 // Version
 // e.g.: 5.7.0.1
