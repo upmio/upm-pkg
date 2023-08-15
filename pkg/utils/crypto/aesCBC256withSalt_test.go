@@ -3,7 +3,7 @@ package crypto
 import (
 	"testing"
 
-	"tesseract/pkg/vars"
+	"github.com/upmio/upm-pkg/pkg/vars"
 )
 
 func TestCbc256WithSalt(t *testing.T) {

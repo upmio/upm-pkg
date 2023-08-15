@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"k8s.io/klog/v2"
 	"os/exec"
 	"time"
 

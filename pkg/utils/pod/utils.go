@@ -19,7 +19,6 @@ package pod
 import (
 	v1 "k8s.io/api/core/v1"
 	klog "k8s.io/klog/v2"
-	v1alpha4 "tesseract/pkg/apis/unit/v1alpha1"
 )
 
 func IsContainerRunningAndReady(pod *v1.Pod, concainername string) bool {
@@ -90,23 +89,23 @@ func IsHealthy(pod *v1.Pod) bool {
 }
 
 // IsUnitInitOK return true if unit is init ok
-func IsUnitInitOK(status v1alpha4.UnitStatus) bool {
-	//if status == nil {
-	//	return false
-	//}
-
-	if status.Conditions == nil || len(status.Conditions) == 0 {
-		return false
-	}
-
-	for i := range status.Conditions {
-		if status.Conditions[i].Type == v1alpha4.InitStartCondition {
-			return status.Conditions[i].Status == v1alpha4.ConditionTrue
-		}
-	}
-
-	return false
-}
+// func IsUnitInitOK(status v1alpha4.UnitStatus) bool {
+// 	//if status == nil {
+// 	//	return false
+// 	//}
+//
+// 	if status.Conditions == nil || len(status.Conditions) == 0 {
+// 		return false
+// 	}
+//
+// 	for i := range status.Conditions {
+// 		if status.Conditions[i].Type == v1alpha4.InitStartCondition {
+// 			return status.Conditions[i].Status == v1alpha4.ConditionTrue
+// 		}
+// 	}
+//
+// 	return false
+// }
 
 // IsPodInitialized returns true if a pod is initialized; false otherwise.
 func IsPodInitialized(pod *v1.Pod) bool {
@@ -142,8 +141,8 @@ func GetPodScheduledCondition(status v1.PodStatus) *v1.PodCondition {
 	return condition
 }
 
-//---------------------------------------------------
-//copy from  k8s.io/kubernetes/pkg/api/v1/pod
+// ---------------------------------------------------
+// copy from  k8s.io/kubernetes/pkg/api/v1/pod
 
 // IsPodReady returns true if a pod is ready; false otherwise.
 func IsPodReady(pod *v1.Pod) bool {

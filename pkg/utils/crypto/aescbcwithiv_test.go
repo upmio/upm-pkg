@@ -3,7 +3,7 @@ package crypto
 import (
 	"testing"
 
-	"tesseract/pkg/vars"
+	"github.com/upmio/upm-pkg/pkg/vars"
 )
 
 func TestAescbcwithiv(t *testing.T) {
