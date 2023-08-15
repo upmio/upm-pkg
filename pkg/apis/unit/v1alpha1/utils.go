@@ -82,12 +82,20 @@ func GetUnitScriptConfigName(unit *Unit) string {
 	return unit.GetName() + "-script"
 }
 
+// func GetUnitConfigTemplateName(unit *Unit) string {
+// 	return unit.GetName() + "-conf-tmpl-main"
+// }
+//
+// func GetUnitConfigName(unit *Unit) string {
+// 	return unit.GetName() + "-service-config"
+// }
+
 func GetUnitConfigTemplateName(unit *Unit) string {
-	return unit.GetName() + "-conf-tmpl-main"
+	return unit.Spec.MainContainerName + "-" + unit.Spec.MainImageVersion + "-conf-tmpl-main"
 }
 
 func GetUnitConfigName(unit *Unit) string {
-	return unit.GetName() + "-service-config"
+	return unit.GetName() + "-conf-tmpl-main"
 }
 
 func GetNetworkClaimName(unit *Unit) string {
@@ -112,7 +120,7 @@ func GetUnitGroups(unit *Unit) (map[string]int, error) {
 	return group, nil
 }
 
-//func GetUnitPort(unit *Unit, portName string) (int, bool) {
+// func GetUnitPort(unit *Unit, portName string) (int, bool) {
 //	find := false
 //	port := 0
 //	for _, container := range unit.Spec.Template.Spec.Containers {
@@ -134,7 +142,7 @@ func GetUnitGroups(unit *Unit) (map[string]int, error) {
 //	}
 //
 //	return port, true
-//}
+// }
 
 func GetUnitNameInGroups(podKey string) string {
 	slices := strings.Split(podKey, "/")
@@ -144,7 +152,7 @@ func GetUnitNameInGroups(podKey string) string {
 	return slices[0]
 }
 
-//func GetVolumeMountPath(unit *Unit, volumeName string) string {
+// func GetVolumeMountPath(unit *Unit, volumeName string) string {
 //	mountPath := ""
 //	for _, one := range unit.Spec.VolumeClaims {
 //		if one.Name == volumeName {
@@ -165,4 +173,4 @@ func GetUnitNameInGroups(podKey string) string {
 //	}
 //
 //	return mountPath
-//}
+// }
