@@ -99,49 +99,18 @@ type Unit struct {
 
 // UnitSpec is the spec for a Unit resource
 type UnitSpec struct {
-	Secret            string `json:"secret"`
 	MainContainerName string `json:"mainContainerName"`
 	MainImageVersion  string `json:"mainImageVersion"`
 	UnService         bool   `json:"unService"`
 	UnBindNode        bool   `json:"unBindNode,omitempty"`
 
-	Template     coreV1.PodTemplateSpec `json:"template"`
-	ConfigSource []ConfigSource         `json:"config_source,omitempty"`
-	Networking   NetworkingRequest      `json:"networking,omitempty"`
-	VolumeClaims []PVCRequest           `json:"claims,omitempty"`
-	Action       Action                 `json:"action"`
-}
+	Template coreV1.PodTemplateSpec `json:"template"`
+	// Networking   NetworkingRequest      `json:"networking,omitempty"`
+	VolumeClaims []PVCRequest `json:"claims,omitempty"`
+	Action       Action       `json:"action"`
 
-//	{
-//	 "config_source": [
-//	   {
-//	     "type": "configmaps/templates",
-//	     "namespaces": "",
-//	     "configmap_name": "",
-//	     "volumemount_mountpath": "",
-//	     "volume_name": ""
-//	   },
-//	   {
-//	     "type": "configmaps/templates",
-//	     "namespaces": "",
-//	     "configmap_name": "",
-//	     "volumemount_mountpath": "",
-//	     "volume_name": ""
-//	   }
-//	 ]
-//	}
-//
-// ConfigSource
-// 如果type = configmap,
-// 那么在unit所在namespace下生成一个configmap,
-// configmap_name="${UNIT_NAME}-service-config"
-type ConfigSource struct {
-	Type                 string `json:"type"`
-	Namespace            string `json:"namespace"`
-	ConfigmapName        string `json:"configmap_name"`
-	DefaultMode          string `json:"default_mode"`
-	VolumemountMountpath string `json:"volumemount_mountpath"`
-	VolumeName           string `json:"volume_name"`
+	Volumes      []coreV1.Volume      `json:"volumes"`
+	VolumeMounts []coreV1.VolumeMount `json:"volumeMounts"`
 }
 
 type MigrateAction struct {

@@ -30,16 +30,12 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 	// Group=unit.bsgchina.com, Version=v1alpha1
 	case v1alpha1.SchemeGroupVersion.WithKind("Action"):
 		return &unitv1alpha1.ActionApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("ConfigSource"):
-		return &unitv1alpha1.ConfigSourceApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("DeleteAction"):
 		return &unitv1alpha1.DeleteActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ErrMsg"):
 		return &unitv1alpha1.ErrMsgApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("MigrateAction"):
 		return &unitv1alpha1.MigrateActionApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("NetworkingRequest"):
-		return &unitv1alpha1.NetworkingRequestApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("PVCRequest"):
 		return &unitv1alpha1.PVCRequestApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("RebuildAction"):
