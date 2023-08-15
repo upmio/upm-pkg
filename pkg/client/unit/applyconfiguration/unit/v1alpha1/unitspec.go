@@ -24,21 +24,29 @@ import (
 // UnitSpecApplyConfiguration represents an declarative configuration of the UnitSpec type for use
 // with apply.
 type UnitSpecApplyConfiguration struct {
-	MainContainerName *string                        `json:"mainContainerName,omitempty"`
-	MainImageVersion  *string                        `json:"mainImageVersion,omitempty"`
-	UnService         *bool                          `json:"unService,omitempty"`
-	UnBindNode        *bool                          `json:"unBindNode,omitempty"`
-	Template          *v1.PodTemplateSpec            `json:"template,omitempty"`
-	VolumeClaims      []PVCRequestApplyConfiguration `json:"claims,omitempty"`
-	Action            *ActionApplyConfiguration      `json:"action,omitempty"`
-	Volumes           []v1.Volume                    `json:"volumes,omitempty"`
-	VolumeMounts      []v1.VolumeMount               `json:"volumeMounts,omitempty"`
+	Action               *ActionApplyConfiguration  `json:"action,omitempty"`
+	MainContainerName    *string                    `json:"mainContainerName,omitempty"`
+	MainImageVersion     *string                    `json:"mainImageVersion,omitempty"`
+	UnService            *bool                      `json:"unService,omitempty"`
+	UnBindNode           *bool                      `json:"unBindNode,omitempty"`
+	Volumes              []v1.Volume                `json:"volumes,omitempty"`
+	VolumeClaimTemplates []v1.PersistentVolumeClaim `json:"volumeClaimTemplates,omitempty"`
+	VolumeMounts         []v1.VolumeMount           `json:"volumeMounts,omitempty"`
+	Template             *v1.PodTemplateSpec        `json:"template,omitempty"`
 }
 
 // UnitSpecApplyConfiguration constructs an declarative configuration of the UnitSpec type for use with
 // apply.
 func UnitSpec() *UnitSpecApplyConfiguration {
 	return &UnitSpecApplyConfiguration{}
+}
+
+// WithAction sets the Action field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Action field is set to the value of the last call.
+func (b *UnitSpecApplyConfiguration) WithAction(value *ActionApplyConfiguration) *UnitSpecApplyConfiguration {
+	b.Action = value
+	return b
 }
 
 // WithMainContainerName sets the MainContainerName field in the declarative configuration to the given value
@@ -73,41 +81,22 @@ func (b *UnitSpecApplyConfiguration) WithUnBindNode(value bool) *UnitSpecApplyCo
 	return b
 }
 
-// WithTemplate sets the Template field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Template field is set to the value of the last call.
-func (b *UnitSpecApplyConfiguration) WithTemplate(value v1.PodTemplateSpec) *UnitSpecApplyConfiguration {
-	b.Template = &value
-	return b
-}
-
-// WithVolumeClaims adds the given value to the VolumeClaims field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the VolumeClaims field.
-func (b *UnitSpecApplyConfiguration) WithVolumeClaims(values ...*PVCRequestApplyConfiguration) *UnitSpecApplyConfiguration {
-	for i := range values {
-		if values[i] == nil {
-			panic("nil value passed to WithVolumeClaims")
-		}
-		b.VolumeClaims = append(b.VolumeClaims, *values[i])
-	}
-	return b
-}
-
-// WithAction sets the Action field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Action field is set to the value of the last call.
-func (b *UnitSpecApplyConfiguration) WithAction(value *ActionApplyConfiguration) *UnitSpecApplyConfiguration {
-	b.Action = value
-	return b
-}
-
 // WithVolumes adds the given value to the Volumes field in the declarative configuration
 // and returns the receiver, so that objects can be build by chaining "With" function invocations.
 // If called multiple times, values provided by each call will be appended to the Volumes field.
 func (b *UnitSpecApplyConfiguration) WithVolumes(values ...v1.Volume) *UnitSpecApplyConfiguration {
 	for i := range values {
 		b.Volumes = append(b.Volumes, values[i])
+	}
+	return b
+}
+
+// WithVolumeClaimTemplates adds the given value to the VolumeClaimTemplates field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, values provided by each call will be appended to the VolumeClaimTemplates field.
+func (b *UnitSpecApplyConfiguration) WithVolumeClaimTemplates(values ...v1.PersistentVolumeClaim) *UnitSpecApplyConfiguration {
+	for i := range values {
+		b.VolumeClaimTemplates = append(b.VolumeClaimTemplates, values[i])
 	}
 	return b
 }
@@ -119,5 +108,13 @@ func (b *UnitSpecApplyConfiguration) WithVolumeMounts(values ...v1.VolumeMount) 
 	for i := range values {
 		b.VolumeMounts = append(b.VolumeMounts, values[i])
 	}
+	return b
+}
+
+// WithTemplate sets the Template field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Template field is set to the value of the last call.
+func (b *UnitSpecApplyConfiguration) WithTemplate(value v1.PodTemplateSpec) *UnitSpecApplyConfiguration {
+	b.Template = &value
 	return b
 }

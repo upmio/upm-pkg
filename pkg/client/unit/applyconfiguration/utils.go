@@ -36,16 +36,12 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitv1alpha1.ErrMsgApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("MigrateAction"):
 		return &unitv1alpha1.MigrateActionApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("PVCRequest"):
-		return &unitv1alpha1.PVCRequestApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("RebuildAction"):
 		return &unitv1alpha1.RebuildActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("RebuildVolumeStatus"):
 		return &unitv1alpha1.RebuildVolumeStatusApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ReuseRetainVolumeAction"):
 		return &unitv1alpha1.ReuseRetainVolumeActionApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("Storage"):
-		return &unitv1alpha1.StorageApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Unit"):
 		return &unitv1alpha1.UnitApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("UnitSpec"):

@@ -99,18 +99,16 @@ type Unit struct {
 
 // UnitSpec is the spec for a Unit resource
 type UnitSpec struct {
-	MainContainerName string `json:"mainContainerName"`
-	MainImageVersion  string `json:"mainImageVersion"`
-	UnService         bool   `json:"unService"`
-	UnBindNode        bool   `json:"unBindNode,omitempty"`
+	Action               Action                         `json:"action"`
+	MainContainerName    string                         `json:"mainContainerName"`
+	MainImageVersion     string                         `json:"mainImageVersion"`
+	UnService            bool                           `json:"unService"`
+	UnBindNode           bool                           `json:"unBindNode,omitempty"`
+	Volumes              []coreV1.Volume                `json:"volumes"`
+	VolumeClaimTemplates []coreV1.PersistentVolumeClaim `json:"volumeClaimTemplates"`
+	VolumeMounts         []coreV1.VolumeMount           `json:"volumeMounts"`
 
 	Template coreV1.PodTemplateSpec `json:"template"`
-	// Networking   NetworkingRequest      `json:"networking,omitempty"`
-	VolumeClaims []PVCRequest `json:"claims,omitempty"`
-	Action       Action       `json:"action"`
-
-	Volumes      []coreV1.Volume      `json:"volumes"`
-	VolumeMounts []coreV1.VolumeMount `json:"volumeMounts"`
 }
 
 type MigrateAction struct {

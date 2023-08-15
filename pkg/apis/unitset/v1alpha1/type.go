@@ -48,9 +48,10 @@ type UnitsetSpec struct {
 	// default: true
 	ShareProcessNamespace *bool `json:"share_process_namespace"`
 	// 主容器资源配置
-	Resource     coreV1.ResourceRequirements `json:"resource"`
-	Volumes      []coreV1.Volume             `json:"volumes"`
-	VolumeMounts []coreV1.VolumeMount        `json:"volumeMounts"`
+	Resource             coreV1.ResourceRequirements    `json:"resource"`
+	Volumes              []coreV1.Volume                `json:"volumes"`
+	VolumeClaimTemplates []coreV1.PersistentVolumeClaim `json:"volumeClaimTemplates"`
+	VolumeMounts         []coreV1.VolumeMount           `json:"volumeMounts"`
 }
 
 type Action struct {

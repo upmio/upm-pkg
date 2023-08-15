@@ -39,6 +39,7 @@ type UnitsetSpecApplyConfiguration struct {
 	ShareProcessNamespace *bool                                 `json:"share_process_namespace,omitempty"`
 	Resource              *v1.ResourceRequirements              `json:"resource,omitempty"`
 	Volumes               []v1.Volume                           `json:"volumes,omitempty"`
+	VolumeClaimTemplates  []v1.PersistentVolumeClaim            `json:"volumeClaimTemplates,omitempty"`
 	VolumeMounts          []v1.VolumeMount                      `json:"volumeMounts,omitempty"`
 }
 
@@ -179,6 +180,16 @@ func (b *UnitsetSpecApplyConfiguration) WithResource(value v1.ResourceRequiremen
 func (b *UnitsetSpecApplyConfiguration) WithVolumes(values ...v1.Volume) *UnitsetSpecApplyConfiguration {
 	for i := range values {
 		b.Volumes = append(b.Volumes, values[i])
+	}
+	return b
+}
+
+// WithVolumeClaimTemplates adds the given value to the VolumeClaimTemplates field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, values provided by each call will be appended to the VolumeClaimTemplates field.
+func (b *UnitsetSpecApplyConfiguration) WithVolumeClaimTemplates(values ...v1.PersistentVolumeClaim) *UnitsetSpecApplyConfiguration {
+	for i := range values {
+		b.VolumeClaimTemplates = append(b.VolumeClaimTemplates, values[i])
 	}
 	return b
 }
