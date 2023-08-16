@@ -33,7 +33,7 @@ import (
 
 // FakeUnitsets implements UnitsetInterface
 type FakeUnitsets struct {
-	Fake *FakeCrdV1alpha1
+	Fake *FakeUnitsetV1alpha1
 	ns   string
 }
 

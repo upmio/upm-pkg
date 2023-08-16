@@ -39,7 +39,7 @@ func Unitset(name, namespace string) *UnitsetApplyConfiguration {
 	b.WithName(name)
 	b.WithNamespace(namespace)
 	b.WithKind("Unitset")
-	b.WithAPIVersion("crd.bsgchina.com/v1alpha1")
+	b.WithAPIVersion("unitset.bsgchina.com/v1alpha1")
 	return b
 }
 

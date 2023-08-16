@@ -61,7 +61,7 @@ type unitsets struct {
 }
 
 // newUnitsets returns a Unitsets
-func newUnitsets(c *CrdV1alpha1Client, namespace string) *unitsets {
+func newUnitsets(c *UnitsetV1alpha1Client, namespace string) *unitsets {
 	return &unitsets{
 		client: c.RESTClient(),
 		ns:     namespace,

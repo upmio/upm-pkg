@@ -242,9 +242,9 @@ type SharedInformerFactory interface {
 	// client.
 	InformerFor(obj runtime.Object, newFunc internalinterfaces.NewInformerFunc) cache.SharedIndexInformer
 
-	Crd() unit.Interface
+	Unit() unit.Interface
 }
 
-func (f *sharedInformerFactory) Crd() unit.Interface {
+func (f *sharedInformerFactory) Unit() unit.Interface {
 	return unit.New(f, f.namespace, f.tweakListOptions)
 }

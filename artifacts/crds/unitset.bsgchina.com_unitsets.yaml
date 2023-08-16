@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.1
-  name: unitsets.crd.bsgchina.com
+  name: unitsets.unitset.bsgchina.com
 spec:
-  group: crd.bsgchina.com
+  group: unitset.bsgchina.com
   names:
     kind: Unitset
     listKind: UnitsetList
