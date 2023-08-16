@@ -61,13 +61,13 @@ func NewFilteredUnitInformer(client versioned.Interface, namespace string, resyn
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.UnitV1alpha1().Units(namespace).List(context.TODO(), options)
+				return client.CrdV1alpha1().Units(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.UnitV1alpha1().Units(namespace).Watch(context.TODO(), options)
+				return client.CrdV1alpha1().Units(namespace).Watch(context.TODO(), options)
 			},
 		},
 		&unitv1alpha1.Unit{},

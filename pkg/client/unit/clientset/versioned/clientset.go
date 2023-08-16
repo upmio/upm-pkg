@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"net/http"
 
-	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1"
+	crdv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unit/clientset/versioned/typed/unit/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -29,18 +29,18 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	UnitV1alpha1() unitv1alpha1.UnitV1alpha1Interface
+	CrdV1alpha1() crdv1alpha1.CrdV1alpha1Interface
 }
 
 // Clientset contains the clients for groups.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	unitV1alpha1 *unitv1alpha1.UnitV1alpha1Client
+	crdV1alpha1 *crdv1alpha1.CrdV1alpha1Client
 }
 
-// UnitV1alpha1 retrieves the UnitV1alpha1Client
-func (c *Clientset) UnitV1alpha1() unitv1alpha1.UnitV1alpha1Interface {
-	return c.unitV1alpha1
+// CrdV1alpha1 retrieves the CrdV1alpha1Client
+func (c *Clientset) CrdV1alpha1() crdv1alpha1.CrdV1alpha1Interface {
+	return c.crdV1alpha1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -87,7 +87,7 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 
 	var cs Clientset
 	var err error
-	cs.unitV1alpha1, err = unitv1alpha1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	cs.crdV1alpha1, err = crdv1alpha1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.unitV1alpha1 = unitv1alpha1.New(c)
+	cs.crdV1alpha1 = crdv1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

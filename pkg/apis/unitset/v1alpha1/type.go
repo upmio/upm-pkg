@@ -170,8 +170,8 @@ type UnitsetStatus struct {
 type ConditionStatus string
 type ConditionType string
 type Condition struct {
-	Type   ConditionType
-	Status ConditionStatus
+	Type   ConditionType   `json:"type"`
+	Status ConditionStatus `json:"status"`
 }
 
 type ErrMsg struct {

@@ -27,9 +27,11 @@ import (
 // apply configuration type exists for the given GroupVersionKind.
 func ForKind(kind schema.GroupVersionKind) interface{} {
 	switch kind {
-	// Group=unit.bsgchina.com, Version=v1alpha1
+	// Group=crd.bsgchina.com, Version=v1alpha1
 	case v1alpha1.SchemeGroupVersion.WithKind("Action"):
 		return &unitv1alpha1.ActionApplyConfiguration{}
+	case v1alpha1.SchemeGroupVersion.WithKind("Condition"):
+		return &unitv1alpha1.ConditionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("DeleteAction"):
 		return &unitv1alpha1.DeleteActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ErrMsg"):

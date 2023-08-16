@@ -19,8 +19,8 @@ package fake
 
 import (
 	clientset "github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned"
-	unitsetv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned/typed/unitset/v1alpha1"
-	fakeunitsetv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned/typed/unitset/v1alpha1/fake"
+	crdv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned/typed/unitset/v1alpha1"
+	fakecrdv1alpha1 "github.com/upmio/upm-pkg/pkg/client/unitset/clientset/versioned/typed/unitset/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -78,7 +78,7 @@ var (
 	_ testing.FakeClient  = &Clientset{}
 )
 
-// UnitsetV1alpha1 retrieves the UnitsetV1alpha1Client
-func (c *Clientset) UnitsetV1alpha1() unitsetv1alpha1.UnitsetV1alpha1Interface {
-	return &fakeunitsetv1alpha1.FakeUnitsetV1alpha1{Fake: &c.Fake}
+// CrdV1alpha1 retrieves the CrdV1alpha1Client
+func (c *Clientset) CrdV1alpha1() crdv1alpha1.CrdV1alpha1Interface {
+	return &fakecrdv1alpha1.FakeCrdV1alpha1{Fake: &c.Fake}
 }

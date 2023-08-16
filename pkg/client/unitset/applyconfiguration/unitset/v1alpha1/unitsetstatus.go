@@ -17,15 +17,11 @@ limitations under the License.
 
 package v1alpha1
 
-import (
-	unitsetv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unitset/v1alpha1"
-)
-
 // UnitsetStatusApplyConfiguration represents an declarative configuration of the UnitsetStatus type for use
 // with apply.
 type UnitsetStatusApplyConfiguration struct {
-	ErrMessages []ErrMsgApplyConfiguration  `json:"err_messages,omitempty"`
-	Conditions  []unitsetv1alpha1.Condition `json:"conditions,omitempty"`
+	ErrMessages []ErrMsgApplyConfiguration    `json:"err_messages,omitempty"`
+	Conditions  []ConditionApplyConfiguration `json:"conditions,omitempty"`
 }
 
 // UnitsetStatusApplyConfiguration constructs an declarative configuration of the UnitsetStatus type for use with
@@ -50,9 +46,12 @@ func (b *UnitsetStatusApplyConfiguration) WithErrMessages(values ...*ErrMsgApply
 // WithConditions adds the given value to the Conditions field in the declarative configuration
 // and returns the receiver, so that objects can be build by chaining "With" function invocations.
 // If called multiple times, values provided by each call will be appended to the Conditions field.
-func (b *UnitsetStatusApplyConfiguration) WithConditions(values ...unitsetv1alpha1.Condition) *UnitsetStatusApplyConfiguration {
+func (b *UnitsetStatusApplyConfiguration) WithConditions(values ...*ConditionApplyConfiguration) *UnitsetStatusApplyConfiguration {
 	for i := range values {
-		b.Conditions = append(b.Conditions, values[i])
+		if values[i] == nil {
+			panic("nil value passed to WithConditions")
+		}
+		b.Conditions = append(b.Conditions, *values[i])
 	}
 	return b
 }

@@ -17,15 +17,11 @@ limitations under the License.
 
 package v1alpha1
 
-import (
-	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
-)
-
 // UnitStatusApplyConfiguration represents an declarative configuration of the UnitStatus type for use
 // with apply.
 type UnitStatusApplyConfiguration struct {
 	RebuildStatus *RebuildVolumeStatusApplyConfiguration `json:"volume_suffix,omitempty"`
-	Conditions    []unitv1alpha1.Condition               `json:"conditions,omitempty"`
+	Conditions    []ConditionApplyConfiguration          `json:"conditions,omitempty"`
 	ErrMessages   []ErrMsgApplyConfiguration             `json:"err_messages,omitempty"`
 }
 
@@ -46,9 +42,12 @@ func (b *UnitStatusApplyConfiguration) WithRebuildStatus(value *RebuildVolumeSta
 // WithConditions adds the given value to the Conditions field in the declarative configuration
 // and returns the receiver, so that objects can be build by chaining "With" function invocations.
 // If called multiple times, values provided by each call will be appended to the Conditions field.
-func (b *UnitStatusApplyConfiguration) WithConditions(values ...unitv1alpha1.Condition) *UnitStatusApplyConfiguration {
+func (b *UnitStatusApplyConfiguration) WithConditions(values ...*ConditionApplyConfiguration) *UnitStatusApplyConfiguration {
 	for i := range values {
-		b.Conditions = append(b.Conditions, values[i])
+		if values[i] == nil {
+			panic("nil value passed to WithConditions")
+		}
+		b.Conditions = append(b.Conditions, *values[i])
 	}
 	return b
 }

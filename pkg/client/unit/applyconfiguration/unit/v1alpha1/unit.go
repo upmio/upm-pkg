@@ -39,7 +39,7 @@ func Unit(name, namespace string) *UnitApplyConfiguration {
 	b.WithName(name)
 	b.WithNamespace(namespace)
 	b.WithKind("Unit")
-	b.WithAPIVersion("unit.bsgchina.com/v1alpha1")
+	b.WithAPIVersion("crd.bsgchina.com/v1alpha1")
 	return b
 }
 

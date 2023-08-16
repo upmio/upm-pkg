@@ -61,13 +61,13 @@ func NewFilteredUnitsetInformer(client versioned.Interface, namespace string, re
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.UnitsetV1alpha1().Unitsets(namespace).List(context.TODO(), options)
+				return client.CrdV1alpha1().Unitsets(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.UnitsetV1alpha1().Unitsets(namespace).Watch(context.TODO(), options)
+				return client.CrdV1alpha1().Unitsets(namespace).Watch(context.TODO(), options)
 			},
 		},
 		&unitsetv1alpha1.Unitset{},
