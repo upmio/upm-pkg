@@ -38,7 +38,7 @@ CODEGEN_PKG="${GOPATH}/src/github.com/kubernetes/code-generator"
 ${CODEGEN_PKG}/generate-groups.sh all github.com/upmio/upm-pkg/pkg/client/unitset github.com/upmio/upm-pkg/pkg/apis unitset:v1alpha1 --go-header-file ./boilerplate.go.txt
 
 # for unit
-${CODEGEN_PKG}/generate-groups.sh all github.com/upmio/upm-pkg/pkg/client/unit github.com/upmio/upm-pkg/pkg/apis unit:v1alpha1 --go-header-file ./boilerplate.go.txt
+#${CODEGEN_PKG}/generate-groups.sh all github.com/upmio/upm-pkg/pkg/client/unit github.com/upmio/upm-pkg/pkg/apis unit:v1alpha1 --go-header-file ./boilerplate.go.txt
 
 # for test
 #${CODEGEN_PKG}/generate-groups.sh all  github.com/upmio/upm-pkg/pkg/client/unitset-test  github.com/upmio/upm-pkg/pkg/apis unitset:v1alpha1 --go-header-file ./boilerplate.go.txt

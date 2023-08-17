@@ -24,23 +24,13 @@ import (
 // UnitsetSpecApplyConfiguration represents an declarative configuration of the UnitsetSpec type for use
 // with apply.
 type UnitsetSpecApplyConfiguration struct {
-	Action                *ActionApplyConfiguration             `json:"action,omitempty"`
-	SharedConfigName      *string                               `json:"sharedConfigName,omitempty"`
-	UnbindNode            *bool                                 `json:"unbindNode,omitempty"`
-	Startup               *bool                                 `json:"startup,omitempty"`
-	Affinity              *v1.Affinity                          `json:"affinity,omitempty"`
-	Architecture          *ArchitectureApplyConfiguration       `json:"architecture,omitempty"`
-	Image                 *ImageVersionApplyConfiguration       `json:"image,omitempty"`
-	Ports                 []ContainerPortApplyConfiguration     `json:"ports,omitempty"`
-	Env                   []v1.EnvVar                           `json:"env,omitempty"`
-	ExternalSecret        *ExternalSecretInfoApplyConfiguration `json:"externalSecret,omitempty"`
-	Options               map[string]string                     `json:"options,omitempty"`
-	Service               *K8sServiceApplyConfiguration         `json:"service,omitempty"`
-	ShareProcessNamespace *bool                                 `json:"share_process_namespace,omitempty"`
-	Resource              *v1.ResourceRequirements              `json:"resource,omitempty"`
-	Volumes               []v1.Volume                           `json:"volumes,omitempty"`
-	VolumeClaimTemplates  []v1.PersistentVolumeClaim            `json:"volumeClaimTemplates,omitempty"`
-	VolumeMounts          []v1.VolumeMount                      `json:"volumeMounts,omitempty"`
+	Image                *ImageVersionApplyConfiguration       `json:"image,omitempty"`
+	Architecture         *ArchitectureApplyConfiguration       `json:"architecture,omitempty"`
+	SharedConfigName     *string                               `json:"sharedConfigName,omitempty"`
+	VolumeClaimTemplates []v1.PersistentVolumeClaim            `json:"volumeClaimTemplates,omitempty"`
+	Action               *ActionApplyConfiguration             `json:"action,omitempty"`
+	Template             *UnitTemplateApplyConfiguration       `json:"template,omitempty"`
+	ExternalSecret       *ExternalSecretInfoApplyConfiguration `json:"externalSecret,omitempty"`
 }
 
 // UnitsetSpecApplyConfiguration constructs an declarative configuration of the UnitsetSpec type for use with
@@ -49,43 +39,11 @@ func UnitsetSpec() *UnitsetSpecApplyConfiguration {
 	return &UnitsetSpecApplyConfiguration{}
 }
 
-// WithAction sets the Action field in the declarative configuration to the given value
+// WithImage sets the Image field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Action field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithAction(value *ActionApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.Action = value
-	return b
-}
-
-// WithSharedConfigName sets the SharedConfigName field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the SharedConfigName field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithSharedConfigName(value string) *UnitsetSpecApplyConfiguration {
-	b.SharedConfigName = &value
-	return b
-}
-
-// WithUnbindNode sets the UnbindNode field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the UnbindNode field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithUnbindNode(value bool) *UnitsetSpecApplyConfiguration {
-	b.UnbindNode = &value
-	return b
-}
-
-// WithStartup sets the Startup field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Startup field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithStartup(value bool) *UnitsetSpecApplyConfiguration {
-	b.Startup = &value
-	return b
-}
-
-// WithAffinity sets the Affinity field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Affinity field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithAffinity(value v1.Affinity) *UnitsetSpecApplyConfiguration {
-	b.Affinity = &value
+// If called multiple times, the Image field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithImage(value *ImageVersionApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.Image = value
 	return b
 }
 
@@ -97,90 +55,11 @@ func (b *UnitsetSpecApplyConfiguration) WithArchitecture(value *ArchitectureAppl
 	return b
 }
 
-// WithImage sets the Image field in the declarative configuration to the given value
+// WithSharedConfigName sets the SharedConfigName field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Image field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithImage(value *ImageVersionApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.Image = value
-	return b
-}
-
-// WithPorts adds the given value to the Ports field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the Ports field.
-func (b *UnitsetSpecApplyConfiguration) WithPorts(values ...*ContainerPortApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	for i := range values {
-		if values[i] == nil {
-			panic("nil value passed to WithPorts")
-		}
-		b.Ports = append(b.Ports, *values[i])
-	}
-	return b
-}
-
-// WithEnv adds the given value to the Env field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the Env field.
-func (b *UnitsetSpecApplyConfiguration) WithEnv(values ...v1.EnvVar) *UnitsetSpecApplyConfiguration {
-	for i := range values {
-		b.Env = append(b.Env, values[i])
-	}
-	return b
-}
-
-// WithExternalSecret sets the ExternalSecret field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ExternalSecret field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithExternalSecret(value *ExternalSecretInfoApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.ExternalSecret = value
-	return b
-}
-
-// WithOptions puts the entries into the Options field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, the entries provided by each call will be put on the Options field,
-// overwriting an existing map entries in Options field with the same key.
-func (b *UnitsetSpecApplyConfiguration) WithOptions(entries map[string]string) *UnitsetSpecApplyConfiguration {
-	if b.Options == nil && len(entries) > 0 {
-		b.Options = make(map[string]string, len(entries))
-	}
-	for k, v := range entries {
-		b.Options[k] = v
-	}
-	return b
-}
-
-// WithService sets the Service field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Service field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithService(value *K8sServiceApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.Service = value
-	return b
-}
-
-// WithShareProcessNamespace sets the ShareProcessNamespace field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ShareProcessNamespace field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithShareProcessNamespace(value bool) *UnitsetSpecApplyConfiguration {
-	b.ShareProcessNamespace = &value
-	return b
-}
-
-// WithResource sets the Resource field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Resource field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithResource(value v1.ResourceRequirements) *UnitsetSpecApplyConfiguration {
-	b.Resource = &value
-	return b
-}
-
-// WithVolumes adds the given value to the Volumes field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the Volumes field.
-func (b *UnitsetSpecApplyConfiguration) WithVolumes(values ...v1.Volume) *UnitsetSpecApplyConfiguration {
-	for i := range values {
-		b.Volumes = append(b.Volumes, values[i])
-	}
+// If called multiple times, the SharedConfigName field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithSharedConfigName(value string) *UnitsetSpecApplyConfiguration {
+	b.SharedConfigName = &value
 	return b
 }
 
@@ -194,12 +73,26 @@ func (b *UnitsetSpecApplyConfiguration) WithVolumeClaimTemplates(values ...v1.Pe
 	return b
 }
 
-// WithVolumeMounts adds the given value to the VolumeMounts field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the VolumeMounts field.
-func (b *UnitsetSpecApplyConfiguration) WithVolumeMounts(values ...v1.VolumeMount) *UnitsetSpecApplyConfiguration {
-	for i := range values {
-		b.VolumeMounts = append(b.VolumeMounts, values[i])
-	}
+// WithAction sets the Action field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Action field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithAction(value *ActionApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.Action = value
+	return b
+}
+
+// WithTemplate sets the Template field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Template field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithTemplate(value *UnitTemplateApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.Template = value
+	return b
+}
+
+// WithExternalSecret sets the ExternalSecret field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the ExternalSecret field is set to the value of the last call.
+func (b *UnitsetSpecApplyConfiguration) WithExternalSecret(value *ExternalSecretInfoApplyConfiguration) *UnitsetSpecApplyConfiguration {
+	b.ExternalSecret = value
 	return b
 }

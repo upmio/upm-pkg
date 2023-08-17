@@ -21,37 +21,38 @@ type Unitset struct {
 
 // UnitsetSpec is the spec for a Unitset resource
 type UnitsetSpec struct {
-	Action Action `json:"action"`
+	// required: true
+	Image ImageVersion `json:"image"`
+	// required: true
+	Architecture Architecture `json:"architecture"`
 	// required: false
 	// shared config configmap name
 	// 如果非空，先检查是否存在该cm，如果没有则报错
 	// 则使用该configmap作为shared config
-	SharedConfigName string `json:"sharedConfigName"`
+	SharedConfigName     string                         `json:"sharedConfigName"`
+	VolumeClaimTemplates []coreV1.PersistentVolumeClaim `json:"volumeClaimTemplates"`
+	Action               Action                         `json:"action"`
+	Template             UnitTemplate                   `json:"template"`
+
+	ExternalSecret ExternalSecretInfo `json:"externalSecret"`
+}
+
+type UnitTemplate struct {
+	metaV1.ObjectMeta `json:"metadata,omitempty"`
 	// 是否与node绑定，默认false=绑定
 	// required: false
-	UnbindNode bool `json:"unbindNode,omitempty"`
-	// 原InitOnly: true: 服务启动；false: 不用启动
-	Startup  *bool            `json:"startup"`
-	Affinity *coreV1.Affinity `json:"affinity"`
-	// required: true
-	Architecture Architecture `json:"architecture"`
-	// required: true
-	Image ImageVersion `json:"image"`
+	UnbindNode bool            `json:"unbindNode,omitempty"`
+	Env        []coreV1.EnvVar `json:"env"`
+	// 主容器资源配置
+	Resource     coreV1.ResourceRequirements `json:"resource"`
+	Volumes      []coreV1.Volume             `json:"volumes"`
+	VolumeMounts []coreV1.VolumeMount        `json:"volumeMounts"`
+	Affinity     *coreV1.Affinity            `json:"affinity"`
 	// required: false
-	Ports          []ContainerPort    `json:"ports"`
-	Env            []coreV1.EnvVar    `json:"env"`
-	ExternalSecret ExternalSecretInfo `json:"externalSecret"`
-	Options        map[string]string  `json:"options"`
-	// required: true
-	Service K8sService `json:"service"`
+	Ports []ContainerPort `json:"ports"`
 	// required: false
 	// default: true
-	ShareProcessNamespace *bool `json:"share_process_namespace"`
-	// 主容器资源配置
-	Resource             coreV1.ResourceRequirements    `json:"resource"`
-	Volumes              []coreV1.Volume                `json:"volumes"`
-	VolumeClaimTemplates []coreV1.PersistentVolumeClaim `json:"volumeClaimTemplates"`
-	VolumeMounts         []coreV1.VolumeMount           `json:"volumeMounts"`
+	ShareProcessNamespace *bool `json:"shareProcessNamespace"`
 }
 
 type Action struct {

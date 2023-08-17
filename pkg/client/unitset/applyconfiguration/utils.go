@@ -42,14 +42,14 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitsetv1alpha1.ExternalSecretInfoApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ImageVersion"):
 		return &unitsetv1alpha1.ImageVersionApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("K8sService"):
-		return &unitsetv1alpha1.K8sServiceApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Unitset"):
 		return &unitsetv1alpha1.UnitsetApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("UnitsetSpec"):
 		return &unitsetv1alpha1.UnitsetSpecApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("UnitsetStatus"):
 		return &unitsetv1alpha1.UnitsetStatusApplyConfiguration{}
+	case v1alpha1.SchemeGroupVersion.WithKind("UnitTemplate"):
+		return &unitsetv1alpha1.UnitTemplateApplyConfiguration{}
 
 	}
 	return nil
