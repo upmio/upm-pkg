@@ -17,11 +17,16 @@ limitations under the License.
 
 package v1alpha1
 
+import (
+	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
+)
+
 // UnitStatusApplyConfiguration represents an declarative configuration of the UnitStatus type for use
 // with apply.
 type UnitStatusApplyConfiguration struct {
 	RebuildStatus *RebuildVolumeStatusApplyConfiguration `json:"volume_suffix,omitempty"`
 	Conditions    []ConditionApplyConfiguration          `json:"conditions,omitempty"`
+	Phase         *unitv1alpha1.UnitPhase                `json:"phase,omitempty"`
 	ErrMessages   []ErrMsgApplyConfiguration             `json:"err_messages,omitempty"`
 }
 
@@ -49,6 +54,14 @@ func (b *UnitStatusApplyConfiguration) WithConditions(values ...*ConditionApplyC
 		}
 		b.Conditions = append(b.Conditions, *values[i])
 	}
+	return b
+}
+
+// WithPhase sets the Phase field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Phase field is set to the value of the last call.
+func (b *UnitStatusApplyConfiguration) WithPhase(value unitv1alpha1.UnitPhase) *UnitStatusApplyConfiguration {
+	b.Phase = &value
 	return b
 }
 

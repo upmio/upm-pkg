@@ -125,13 +125,13 @@ type RebuildAction struct {
 	RetainVolume *bool `json:"retain_volume,omitempty"`
 }
 
-type DeleteAction struct {
-	Force   bool               `json:"force,omitempty"`
-	PreStop *coreV1.ExecAction `json:"exec"`
-}
+//type DeleteAction struct {
+//	Force   bool               `json:"force,omitempty"`
+//	PreStop *coreV1.ExecAction `json:"exec"`
+//}
 
 type Action struct {
-	Delete            *DeleteAction            `json:"delete,omitempty"`
+	//Delete            *DeleteAction            `json:"delete,omitempty"`
 	Rebuild           *RebuildAction           `json:"rebuild,omitempty"`
 	Migrate           *MigrateAction           `json:"migrate,omitempty"`
 	ReuseRetainVolume *ReuseRetainVolumeAction `json:"reuse_retain_volume,omitempty"`
@@ -227,9 +227,36 @@ type RebuildVolumeStatus struct {
 type UnitStatus struct {
 	RebuildStatus *RebuildVolumeStatus `json:"volume_suffix,omitempty"`
 	Conditions    []Condition          `json:"conditions"`
-	// Phase      string      `json:"phase"`
-	ErrMessages []ErrMsg `json:"err_messages"`
+	Phase         UnitPhase            `json:"phase"`
+	ErrMessages   []ErrMsg             `json:"err_messages"`
 }
+
+// UnitPhase is a label for the condition of a pod at the current time.
+// +enum
+type UnitPhase string
+
+// These are the valid statuses of pods.
+const (
+	// UnitPending means the pod has been accepted by the system, but one or more of the containers
+	// has not been started. This includes time before being bound to a node, as well as time spent
+	// pulling images onto the host.
+	UnitPending UnitPhase = "Pending"
+	// UnitRunning means the pod has been bound to a node and all of the containers have been started.
+	// At least one container is still running or is in the process of being restarted.
+	UnitRunning UnitPhase = "Running"
+	// UnitReady means the pod Running and ready condition = true
+	UnitReady UnitPhase = "Ready"
+	// UnitSucceeded means that all containers in the pod have voluntarily terminated
+	// with a container exit code of 0, and the system is not going to restart any of these containers.
+	UnitSucceeded UnitPhase = "Succeeded"
+	// UnitFailed means that all containers in the pod have terminated, and at least one container has
+	// terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+	UnitFailed UnitPhase = "Failed"
+	// UnitUnknown means that for some reason the state of the pod could not be obtained, typically due
+	// to an error in communicating with the host of the pod.
+	// Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
+	UnitUnknown UnitPhase = "Unknown"
+)
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 

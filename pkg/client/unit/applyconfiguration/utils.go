@@ -32,8 +32,6 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitv1alpha1.ActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Condition"):
 		return &unitv1alpha1.ConditionApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("DeleteAction"):
-		return &unitv1alpha1.DeleteActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ErrMsg"):
 		return &unitv1alpha1.ErrMsgApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("MigrateAction"):
