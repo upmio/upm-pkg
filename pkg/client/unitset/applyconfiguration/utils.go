@@ -28,8 +28,6 @@ import (
 func ForKind(kind schema.GroupVersionKind) interface{} {
 	switch kind {
 	// Group=unitset.bsgchina.com, Version=v1alpha1
-	case v1alpha1.SchemeGroupVersion.WithKind("Action"):
-		return &unitsetv1alpha1.ActionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Architecture"):
 		return &unitsetv1alpha1.ArchitectureApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Condition"):
@@ -42,6 +40,8 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &unitsetv1alpha1.ExternalSecretInfoApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ImageVersion"):
 		return &unitsetv1alpha1.ImageVersionApplyConfiguration{}
+	case v1alpha1.SchemeGroupVersion.WithKind("UnitMetadata"):
+		return &unitsetv1alpha1.UnitMetadataApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Unitset"):
 		return &unitsetv1alpha1.UnitsetApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("UnitsetSpec"):

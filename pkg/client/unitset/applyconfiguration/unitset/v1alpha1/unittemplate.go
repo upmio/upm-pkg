@@ -18,24 +18,22 @@ limitations under the License.
 package v1alpha1
 
 import (
-	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	v1 "k8s.io/client-go/applyconfigurations/meta/v1"
+	v1 "k8s.io/api/core/v1"
 )
 
 // UnitTemplateApplyConfiguration represents an declarative configuration of the UnitTemplate type for use
 // with apply.
 type UnitTemplateApplyConfiguration struct {
-	*v1.ObjectMetaApplyConfiguration `json:"metadata,omitempty"`
-	UnbindNode                       *bool                             `json:"unbindNode,omitempty"`
-	Env                              []corev1.EnvVar                   `json:"env,omitempty"`
-	Resource                         *corev1.ResourceRequirements      `json:"resource,omitempty"`
-	Volumes                          []corev1.Volume                   `json:"volumes,omitempty"`
-	VolumeMounts                     []corev1.VolumeMount              `json:"volumeMounts,omitempty"`
-	Affinity                         *corev1.Affinity                  `json:"affinity,omitempty"`
-	Ports                            []ContainerPortApplyConfiguration `json:"ports,omitempty"`
-	ShareProcessNamespace            *bool                             `json:"shareProcessNamespace,omitempty"`
+	Metadata              *UnitMetadataApplyConfiguration   `json:"metadata,omitempty"`
+	UnbindNode            *bool                             `json:"unbindNode,omitempty"`
+	Env                   []v1.EnvVar                       `json:"env,omitempty"`
+	Resource              *v1.ResourceRequirements          `json:"resource,omitempty"`
+	Volumes               []v1.Volume                       `json:"volumes,omitempty"`
+	VolumeMounts          []v1.VolumeMount                  `json:"volumeMounts,omitempty"`
+	Affinity              *v1.Affinity                      `json:"affinity,omitempty"`
+	Ports                 []ContainerPortApplyConfiguration `json:"ports,omitempty"`
+	ShareProcessNamespace *bool                             `json:"shareProcessNamespace,omitempty"`
+	ServiceAccount        *string                           `json:"serviceAccount,omitempty"`
 }
 
 // UnitTemplateApplyConfiguration constructs an declarative configuration of the UnitTemplate type for use with
@@ -44,146 +42,12 @@ func UnitTemplate() *UnitTemplateApplyConfiguration {
 	return &UnitTemplateApplyConfiguration{}
 }
 
-// WithName sets the Name field in the declarative configuration to the given value
+// WithMetadata sets the Metadata field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Name field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithName(value string) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.Name = &value
+// If called multiple times, the Metadata field is set to the value of the last call.
+func (b *UnitTemplateApplyConfiguration) WithMetadata(value *UnitMetadataApplyConfiguration) *UnitTemplateApplyConfiguration {
+	b.Metadata = value
 	return b
-}
-
-// WithGenerateName sets the GenerateName field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the GenerateName field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithGenerateName(value string) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.GenerateName = &value
-	return b
-}
-
-// WithNamespace sets the Namespace field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Namespace field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithNamespace(value string) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.Namespace = &value
-	return b
-}
-
-// WithUID sets the UID field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the UID field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithUID(value types.UID) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.UID = &value
-	return b
-}
-
-// WithResourceVersion sets the ResourceVersion field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the ResourceVersion field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithResourceVersion(value string) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.ResourceVersion = &value
-	return b
-}
-
-// WithGeneration sets the Generation field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Generation field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithGeneration(value int64) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.Generation = &value
-	return b
-}
-
-// WithCreationTimestamp sets the CreationTimestamp field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the CreationTimestamp field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithCreationTimestamp(value metav1.Time) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.CreationTimestamp = &value
-	return b
-}
-
-// WithDeletionTimestamp sets the DeletionTimestamp field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the DeletionTimestamp field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithDeletionTimestamp(value metav1.Time) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.DeletionTimestamp = &value
-	return b
-}
-
-// WithDeletionGracePeriodSeconds sets the DeletionGracePeriodSeconds field in the declarative configuration to the given value
-// and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the DeletionGracePeriodSeconds field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithDeletionGracePeriodSeconds(value int64) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	b.DeletionGracePeriodSeconds = &value
-	return b
-}
-
-// WithLabels puts the entries into the Labels field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, the entries provided by each call will be put on the Labels field,
-// overwriting an existing map entries in Labels field with the same key.
-func (b *UnitTemplateApplyConfiguration) WithLabels(entries map[string]string) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	if b.Labels == nil && len(entries) > 0 {
-		b.Labels = make(map[string]string, len(entries))
-	}
-	for k, v := range entries {
-		b.Labels[k] = v
-	}
-	return b
-}
-
-// WithAnnotations puts the entries into the Annotations field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, the entries provided by each call will be put on the Annotations field,
-// overwriting an existing map entries in Annotations field with the same key.
-func (b *UnitTemplateApplyConfiguration) WithAnnotations(entries map[string]string) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	if b.Annotations == nil && len(entries) > 0 {
-		b.Annotations = make(map[string]string, len(entries))
-	}
-	for k, v := range entries {
-		b.Annotations[k] = v
-	}
-	return b
-}
-
-// WithOwnerReferences adds the given value to the OwnerReferences field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the OwnerReferences field.
-func (b *UnitTemplateApplyConfiguration) WithOwnerReferences(values ...*v1.OwnerReferenceApplyConfiguration) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	for i := range values {
-		if values[i] == nil {
-			panic("nil value passed to WithOwnerReferences")
-		}
-		b.OwnerReferences = append(b.OwnerReferences, *values[i])
-	}
-	return b
-}
-
-// WithFinalizers adds the given value to the Finalizers field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the Finalizers field.
-func (b *UnitTemplateApplyConfiguration) WithFinalizers(values ...string) *UnitTemplateApplyConfiguration {
-	b.ensureObjectMetaApplyConfigurationExists()
-	for i := range values {
-		b.Finalizers = append(b.Finalizers, values[i])
-	}
-	return b
-}
-
-func (b *UnitTemplateApplyConfiguration) ensureObjectMetaApplyConfigurationExists() {
-	if b.ObjectMetaApplyConfiguration == nil {
-		b.ObjectMetaApplyConfiguration = &v1.ObjectMetaApplyConfiguration{}
-	}
 }
 
 // WithUnbindNode sets the UnbindNode field in the declarative configuration to the given value
@@ -197,7 +61,7 @@ func (b *UnitTemplateApplyConfiguration) WithUnbindNode(value bool) *UnitTemplat
 // WithEnv adds the given value to the Env field in the declarative configuration
 // and returns the receiver, so that objects can be build by chaining "With" function invocations.
 // If called multiple times, values provided by each call will be appended to the Env field.
-func (b *UnitTemplateApplyConfiguration) WithEnv(values ...corev1.EnvVar) *UnitTemplateApplyConfiguration {
+func (b *UnitTemplateApplyConfiguration) WithEnv(values ...v1.EnvVar) *UnitTemplateApplyConfiguration {
 	for i := range values {
 		b.Env = append(b.Env, values[i])
 	}
@@ -207,7 +71,7 @@ func (b *UnitTemplateApplyConfiguration) WithEnv(values ...corev1.EnvVar) *UnitT
 // WithResource sets the Resource field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Resource field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithResource(value corev1.ResourceRequirements) *UnitTemplateApplyConfiguration {
+func (b *UnitTemplateApplyConfiguration) WithResource(value v1.ResourceRequirements) *UnitTemplateApplyConfiguration {
 	b.Resource = &value
 	return b
 }
@@ -215,7 +79,7 @@ func (b *UnitTemplateApplyConfiguration) WithResource(value corev1.ResourceRequi
 // WithVolumes adds the given value to the Volumes field in the declarative configuration
 // and returns the receiver, so that objects can be build by chaining "With" function invocations.
 // If called multiple times, values provided by each call will be appended to the Volumes field.
-func (b *UnitTemplateApplyConfiguration) WithVolumes(values ...corev1.Volume) *UnitTemplateApplyConfiguration {
+func (b *UnitTemplateApplyConfiguration) WithVolumes(values ...v1.Volume) *UnitTemplateApplyConfiguration {
 	for i := range values {
 		b.Volumes = append(b.Volumes, values[i])
 	}
@@ -225,7 +89,7 @@ func (b *UnitTemplateApplyConfiguration) WithVolumes(values ...corev1.Volume) *U
 // WithVolumeMounts adds the given value to the VolumeMounts field in the declarative configuration
 // and returns the receiver, so that objects can be build by chaining "With" function invocations.
 // If called multiple times, values provided by each call will be appended to the VolumeMounts field.
-func (b *UnitTemplateApplyConfiguration) WithVolumeMounts(values ...corev1.VolumeMount) *UnitTemplateApplyConfiguration {
+func (b *UnitTemplateApplyConfiguration) WithVolumeMounts(values ...v1.VolumeMount) *UnitTemplateApplyConfiguration {
 	for i := range values {
 		b.VolumeMounts = append(b.VolumeMounts, values[i])
 	}
@@ -235,7 +99,7 @@ func (b *UnitTemplateApplyConfiguration) WithVolumeMounts(values ...corev1.Volum
 // WithAffinity sets the Affinity field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Affinity field is set to the value of the last call.
-func (b *UnitTemplateApplyConfiguration) WithAffinity(value corev1.Affinity) *UnitTemplateApplyConfiguration {
+func (b *UnitTemplateApplyConfiguration) WithAffinity(value v1.Affinity) *UnitTemplateApplyConfiguration {
 	b.Affinity = &value
 	return b
 }
@@ -258,5 +122,13 @@ func (b *UnitTemplateApplyConfiguration) WithPorts(values ...*ContainerPortApply
 // If called multiple times, the ShareProcessNamespace field is set to the value of the last call.
 func (b *UnitTemplateApplyConfiguration) WithShareProcessNamespace(value bool) *UnitTemplateApplyConfiguration {
 	b.ShareProcessNamespace = &value
+	return b
+}
+
+// WithServiceAccount sets the ServiceAccount field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the ServiceAccount field is set to the value of the last call.
+func (b *UnitTemplateApplyConfiguration) WithServiceAccount(value string) *UnitTemplateApplyConfiguration {
+	b.ServiceAccount = &value
 	return b
 }

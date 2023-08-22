@@ -1,9 +1,7 @@
 package v1alpha1
 
 import (
-	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
 	coreV1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/api/resource"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -15,102 +13,107 @@ type Unitset struct {
 	metaV1.TypeMeta   `json:",inline"`
 	metaV1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   UnitsetSpec   `json:"spec"`
+	// +optional
+	Spec UnitsetSpec `json:"spec"`
+
+	// +optional
 	Status UnitsetStatus `json:"status"`
 }
 
 // UnitsetSpec is the spec for a Unitset resource
 type UnitsetSpec struct {
-	// required: true
+	// +optional
 	Image ImageVersion `json:"image"`
-	// required: true
+
+	// +optional
 	Architecture Architecture `json:"architecture"`
-	// required: false
 	// shared config configmap name
 	// 如果非空，先检查是否存在该cm，如果没有则报错
 	// 则使用该configmap作为shared config
-	SharedConfigName     string                         `json:"sharedConfigName"`
-	VolumeClaimTemplates []coreV1.PersistentVolumeClaim `json:"volumeClaimTemplates"`
-	Action               Action                         `json:"action"`
-	Template             UnitTemplate                   `json:"template"`
+	// +optional
+	SharedConfigName string `json:"sharedConfigName"`
 
-	ExternalSecret ExternalSecretInfo `json:"externalSecret"`
+	// +optional
+	VolumeClaimTemplates []coreV1.PersistentVolumeClaim `json:"volumeClaimTemplates"`
+
+	// +optional
+	Action Action `json:"action,omitempty"`
+
+	// +optional
+	Template UnitTemplate `json:"template"`
+
+	// +optional
+	ExternalSecret ExternalSecretInfo `json:"externalSecret,omitempty"`
 }
 
 type UnitTemplate struct {
-	metaV1.ObjectMeta `json:"metadata,omitempty"`
+
+	// +optional
+	Metadata UnitMetadata `json:"metadata"`
 	// 是否与node绑定，默认false=绑定
-	// required: false
-	UnbindNode bool            `json:"unbindNode,omitempty"`
-	Env        []coreV1.EnvVar `json:"env"`
+
+	// +optional
+	UnbindNode bool `json:"unbindNode,omitempty"`
+
+	// +optional
+	Env []coreV1.EnvVar `json:"env"`
 	// 主容器资源配置
-	Resource     coreV1.ResourceRequirements `json:"resource"`
-	Volumes      []coreV1.Volume             `json:"volumes"`
-	VolumeMounts []coreV1.VolumeMount        `json:"volumeMounts"`
-	Affinity     *coreV1.Affinity            `json:"affinity"`
-	// required: false
+
+	// +optional
+	Resource coreV1.ResourceRequirements `json:"resource,omitempty"`
+
+	// +optional
+	Volumes []coreV1.Volume `json:"volumes"`
+
+	// +optional
+	VolumeMounts []coreV1.VolumeMount `json:"volumeMounts"`
+
+	// +optional
+	Affinity *coreV1.Affinity `json:"affinity"`
+
+	// +optional
 	Ports []ContainerPort `json:"ports"`
-	// required: false
+
 	// default: true
-	ShareProcessNamespace *bool `json:"shareProcessNamespace"`
+
+	// +optional
+	ShareProcessNamespace *bool `json:"shareProcessNamespace,omitempty"`
+
+	// +optional
+	ServiceAccount string `json:"serviceAccount"`
+}
+
+type UnitMetadata struct {
+
+	// +optional
+	Name string `json:"name"`
+
+	// +optional
+	Labels map[string]string `json:"labels"`
+
+	// +optional
+	Annotations map[string]string `json:"annotations"`
 }
 
 type Action struct {
-	Delete *unitv1alpha1.DeleteAction `json:"delete,omitempty"`
-}
-
-type DeleteAction struct {
-	Force   bool               `json:"force,omitempty"`
-	PreStop *coreV1.ExecAction `json:"exec"`
 }
 
 type ExternalSecretInfo struct {
+
+	// +optional
 	Organization string `json:"organization"`
-	RootSecret   string `json:"root_secret"`
-}
 
-type ResourceRequirements struct {
-	// required: true
-	// minimum: 1
-	MiliCPU resource.Quantity `json:"milicpu"`
-	// required: true
-	// minimum: 1
-	Memory  resource.Quantity `json:"memory"`
-	Cache   *CacheInfo        `json:"cache,omitempty"`
-	Storage *StorageInfo      `json:"storage,omitempty"`
-}
-
-type CacheInfo struct {
-	CacheType string `json:"type"`
-}
-
-type StorageInfo struct {
-	Volumes        []VolumeRequirement `json:"volumes"`
-	StorageClassID string              `json:"storageclass_id"`
-}
-
-type VolumeRequirement struct {
-	Capacity  resource.Quantity `json:"capacity"`
-	Type      string            `json:"type"`
-	MountPath string            `json:"mount_path"`
+	// +optional
+	RootSecret string `json:"root_secret"`
 }
 
 type ContainerPort struct {
-	Port int32  `json:"port"`
+
+	// +optional
+	Port int32 `json:"port"`
+
+	// +optional
 	Name string `json:"name"`
-}
-
-type K8sService struct {
-	// enum: ClusterIP, NodePort, LoadBalancer
-	Type                     string `json:"type"`
-	PublishNotReadyAddresses *bool  `json:"publish_not_ready_addresses"`
-}
-
-// ConfigSet 服务配置信息(创建时用户指定的）
-type ConfigSet struct {
-	Section string `json:"section"`
-	Key     string `json:"key"`
-	Value   string `json:"value"`
 }
 
 // ImageVersion 镜像版本
@@ -142,43 +145,45 @@ type ImageVersion struct {
 }
 
 type Architecture struct {
-	// required: true
+
+	// +optional
 	Nodes int `json:"nodes"`
-	// required: true
+
 	// enum: single,clone,replication_async,replication_semi_sync
+
+	// +optional
 	Mode string `json:"mode"`
-}
-
-// Affinity ...
-type Affinity struct {
-	Required  []string `json:"required"`
-	Preferred []string `json:"preferred"`
-}
-
-// AffinityNew ...
-// [key] = [value1, value2, ...]
-type AffinityNew struct {
-	Required  map[string][]string `json:"required"`
-	Preferred map[string][]string `json:"preferred"`
 }
 
 // UnitsetStatus is the status for a Unitset resource
 type UnitsetStatus struct {
-	ErrMessages []ErrMsg    `json:"err_messages"`
-	Conditions  []Condition `json:"conditions"`
+	// +optional
+	ErrMessages []ErrMsg `json:"err_messages"`
+
+	// +optional
+	Conditions []Condition `json:"conditions"`
 }
 
 type ConditionStatus string
 type ConditionType string
 type Condition struct {
-	Type   ConditionType   `json:"type"`
+	// +optional
+	Type ConditionType `json:"type"`
+
+	// +optional
 	Status ConditionStatus `json:"status"`
 }
 
 type ErrMsg struct {
+
+	// +optional
 	Time metaV1.Time `json:"time"`
-	Err  string      `json:"err"`
-	Mode string      `json:"mode"`
+
+	// +optional
+	Err string `json:"err"`
+
+	// +optional
+	Mode string `json:"mode"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

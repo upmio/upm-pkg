@@ -18,6 +18,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	unitsetv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unitset/v1alpha1"
 	v1 "k8s.io/api/core/v1"
 )
 
@@ -28,7 +29,7 @@ type UnitsetSpecApplyConfiguration struct {
 	Architecture         *ArchitectureApplyConfiguration       `json:"architecture,omitempty"`
 	SharedConfigName     *string                               `json:"sharedConfigName,omitempty"`
 	VolumeClaimTemplates []v1.PersistentVolumeClaim            `json:"volumeClaimTemplates,omitempty"`
-	Action               *ActionApplyConfiguration             `json:"action,omitempty"`
+	Action               *unitsetv1alpha1.Action               `json:"action,omitempty"`
 	Template             *UnitTemplateApplyConfiguration       `json:"template,omitempty"`
 	ExternalSecret       *ExternalSecretInfoApplyConfiguration `json:"externalSecret,omitempty"`
 }
@@ -76,8 +77,8 @@ func (b *UnitsetSpecApplyConfiguration) WithVolumeClaimTemplates(values ...v1.Pe
 // WithAction sets the Action field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Action field is set to the value of the last call.
-func (b *UnitsetSpecApplyConfiguration) WithAction(value *ActionApplyConfiguration) *UnitsetSpecApplyConfiguration {
-	b.Action = value
+func (b *UnitsetSpecApplyConfiguration) WithAction(value unitsetv1alpha1.Action) *UnitsetSpecApplyConfiguration {
+	b.Action = &value
 	return b
 }
 
