@@ -20,8 +20,8 @@ package v1alpha1
 // UnitsetStatusApplyConfiguration represents an declarative configuration of the UnitsetStatus type for use
 // with apply.
 type UnitsetStatusApplyConfiguration struct {
-	ErrMessages []ErrMsgApplyConfiguration    `json:"err_messages,omitempty"`
-	Conditions  []ConditionApplyConfiguration `json:"conditions,omitempty"`
+	Units      *int `json:"units,omitempty"`
+	ReadyUnits *int `json:"readyUnits,omitempty"`
 }
 
 // UnitsetStatusApplyConfiguration constructs an declarative configuration of the UnitsetStatus type for use with
@@ -30,28 +30,18 @@ func UnitsetStatus() *UnitsetStatusApplyConfiguration {
 	return &UnitsetStatusApplyConfiguration{}
 }
 
-// WithErrMessages adds the given value to the ErrMessages field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the ErrMessages field.
-func (b *UnitsetStatusApplyConfiguration) WithErrMessages(values ...*ErrMsgApplyConfiguration) *UnitsetStatusApplyConfiguration {
-	for i := range values {
-		if values[i] == nil {
-			panic("nil value passed to WithErrMessages")
-		}
-		b.ErrMessages = append(b.ErrMessages, *values[i])
-	}
+// WithUnits sets the Units field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Units field is set to the value of the last call.
+func (b *UnitsetStatusApplyConfiguration) WithUnits(value int) *UnitsetStatusApplyConfiguration {
+	b.Units = &value
 	return b
 }
 
-// WithConditions adds the given value to the Conditions field in the declarative configuration
-// and returns the receiver, so that objects can be build by chaining "With" function invocations.
-// If called multiple times, values provided by each call will be appended to the Conditions field.
-func (b *UnitsetStatusApplyConfiguration) WithConditions(values ...*ConditionApplyConfiguration) *UnitsetStatusApplyConfiguration {
-	for i := range values {
-		if values[i] == nil {
-			panic("nil value passed to WithConditions")
-		}
-		b.Conditions = append(b.Conditions, *values[i])
-	}
+// WithReadyUnits sets the ReadyUnits field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the ReadyUnits field is set to the value of the last call.
+func (b *UnitsetStatusApplyConfiguration) WithReadyUnits(value int) *UnitsetStatusApplyConfiguration {
+	b.ReadyUnits = &value
 	return b
 }

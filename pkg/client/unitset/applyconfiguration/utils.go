@@ -30,12 +30,8 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 	// Group=unitset.bsgchina.com, Version=v1alpha1
 	case v1alpha1.SchemeGroupVersion.WithKind("Architecture"):
 		return &unitsetv1alpha1.ArchitectureApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("Condition"):
-		return &unitsetv1alpha1.ConditionApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ContainerPort"):
 		return &unitsetv1alpha1.ContainerPortApplyConfiguration{}
-	case v1alpha1.SchemeGroupVersion.WithKind("ErrMsg"):
-		return &unitsetv1alpha1.ErrMsgApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ExternalSecretInfo"):
 		return &unitsetv1alpha1.ExternalSecretInfoApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("ImageVersion"):

@@ -20,7 +20,7 @@ package v1alpha1
 // ArchitectureApplyConfiguration represents an declarative configuration of the Architecture type for use
 // with apply.
 type ArchitectureApplyConfiguration struct {
-	Nodes *int    `json:"nodes,omitempty"`
+	Units *int    `json:"units,omitempty"`
 	Mode  *string `json:"mode,omitempty"`
 }
 
@@ -30,11 +30,11 @@ func Architecture() *ArchitectureApplyConfiguration {
 	return &ArchitectureApplyConfiguration{}
 }
 
-// WithNodes sets the Nodes field in the declarative configuration to the given value
+// WithUnits sets the Units field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the Nodes field is set to the value of the last call.
-func (b *ArchitectureApplyConfiguration) WithNodes(value int) *ArchitectureApplyConfiguration {
-	b.Nodes = &value
+// If called multiple times, the Units field is set to the value of the last call.
+func (b *ArchitectureApplyConfiguration) WithUnits(value int) *ArchitectureApplyConfiguration {
+	b.Units = &value
 	return b
 }
 

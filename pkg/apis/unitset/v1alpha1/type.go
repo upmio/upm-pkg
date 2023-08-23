@@ -147,21 +147,21 @@ type ImageVersion struct {
 type Architecture struct {
 
 	// +optional
-	Nodes int `json:"nodes"`
+	Units int `json:"units"`
 
 	// enum: single,clone,replication_async,replication_semi_sync
-
 	// +optional
 	Mode string `json:"mode"`
 }
 
 // UnitsetStatus is the status for a Unitset resource
 type UnitsetStatus struct {
-	// +optional
-	ErrMessages []ErrMsg `json:"err_messages"`
 
 	// +optional
-	Conditions []Condition `json:"conditions"`
+	Units int `json:"units"`
+
+	// +optional
+	ReadyUnits int `json:"readyUnits"`
 }
 
 type ConditionStatus string
