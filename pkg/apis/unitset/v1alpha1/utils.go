@@ -35,6 +35,12 @@ func (iv *ImageVersion) MainVersion() string {
 	return fmt.Sprintf("%d.%d", iv.Major, iv.Minor)
 }
 
+// NativeVersion
+// e.g.: 5.7.1
+func (iv *ImageVersion) NativeVersion() string {
+	return fmt.Sprintf("%d.%d.%d", iv.Major, iv.Minor, iv.Patch)
+}
+
 // TypeWithVersionByColon
 // e.g.: mysql:5.7.0.1
 func (iv *ImageVersion) TypeWithVersionByColon() string {

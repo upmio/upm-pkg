@@ -9,7 +9,7 @@ spec:
   group: unitset.bsgchina.com
   names:
     kind: UnitSet
-    listKind: UnitSetList
+    listKind: UnitsetList
     plural: unitsets
     singular: unitset
     shortNames:
