@@ -27,6 +27,8 @@ type UnitStatusApplyConfiguration struct {
 	RebuildStatus *RebuildVolumeStatusApplyConfiguration `json:"volume_suffix,omitempty"`
 	Conditions    []ConditionApplyConfiguration          `json:"conditions,omitempty"`
 	Phase         *unitv1alpha1.UnitPhase                `json:"phase,omitempty"`
+	HostIP        *string                                `json:"hostIP,omitempty"`
+	PodIPs        []string                               `json:"podIPs,omitempty"`
 	ErrMessages   []ErrMsgApplyConfiguration             `json:"err_messages,omitempty"`
 }
 
@@ -62,6 +64,24 @@ func (b *UnitStatusApplyConfiguration) WithConditions(values ...*ConditionApplyC
 // If called multiple times, the Phase field is set to the value of the last call.
 func (b *UnitStatusApplyConfiguration) WithPhase(value unitv1alpha1.UnitPhase) *UnitStatusApplyConfiguration {
 	b.Phase = &value
+	return b
+}
+
+// WithHostIP sets the HostIP field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the HostIP field is set to the value of the last call.
+func (b *UnitStatusApplyConfiguration) WithHostIP(value string) *UnitStatusApplyConfiguration {
+	b.HostIP = &value
+	return b
+}
+
+// WithPodIPs adds the given value to the PodIPs field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, values provided by each call will be appended to the PodIPs field.
+func (b *UnitStatusApplyConfiguration) WithPodIPs(values ...string) *UnitStatusApplyConfiguration {
+	for i := range values {
+		b.PodIPs = append(b.PodIPs, values[i])
+	}
 	return b
 }
 

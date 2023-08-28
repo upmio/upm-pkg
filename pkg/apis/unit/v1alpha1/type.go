@@ -228,6 +228,8 @@ type UnitStatus struct {
 	RebuildStatus *RebuildVolumeStatus `json:"volume_suffix,omitempty"`
 	Conditions    []Condition          `json:"conditions"`
 	Phase         UnitPhase            `json:"phase"`
+	HostIP        string               `json:"hostIP"`
+	PodIPs        []string             `json:"podIPs"`
 	ErrMessages   []ErrMsg             `json:"err_messages"`
 }
 

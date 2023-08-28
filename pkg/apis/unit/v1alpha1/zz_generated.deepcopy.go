@@ -403,6 +403,11 @@ func (in *UnitStatus) DeepCopyInto(out *UnitStatus) {
 		*out = make([]Condition, len(*in))
 		copy(*out, *in)
 	}
+	if in.PodIPs != nil {
+		in, out := &in.PodIPs, &out.PodIPs
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	if in.ErrMessages != nil {
 		in, out := &in.ErrMessages, &out.ErrMessages
 		*out = make([]ErrMsg, len(*in))

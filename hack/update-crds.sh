@@ -15,4 +15,4 @@ export PATH=$PATH:$GOPATH/bin
 
 cd "${API_ROOT}"
 #controller-gen crd paths=./unit/... output:crd:dir="${REPO_ROOT}/artifacts/crds"
-controller-gen crd paths=./unitset/... output:crd:dir="${REPO_ROOT}/artifacts/crds"
+#controller-gen crd paths=./unitset/... output:crd:dir="${REPO_ROOT}/artifacts/crds"

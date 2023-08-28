@@ -36,29 +36,6 @@ spec:
             properties:
               action:
                 properties:
-                  delete:
-                    properties:
-                      exec:
-                        description: ExecAction describes a "run in container" action.
-                        properties:
-                          command:
-                            description: Command is the command line to execute inside
-                              the container, the working directory for the command  is
-                              root ('/') in the container's filesystem. The command
-                              is simply exec'd, it is not run inside a shell, so traditional
-                              shell instructions ('|', etc) won't work. To use a shell,
-                              you need to explicitly call out to that shell. Exit
-                              status of 0 is treated as live/healthy and non-zero
-                              is unhealthy.
-                            items:
-                              type: string
-                            type: array
-                        type: object
-                      force:
-                        type: boolean
-                    required:
-                    - exec
-                    type: object
                   migrate:
                     properties:
                       force:
@@ -67,6 +44,7 @@ spec:
                         type: string
                     type: object
                   rebuild:
+                    description: Delete            *DeleteAction            `json:"delete,omitempty"`
                     properties:
                       force:
                         type: boolean
@@ -9533,7 +9511,6 @@ spec:
                   type: object
                 type: array
               err_messages:
-                description: Phase      string      `json:"phase"`
                 items:
                   properties:
                     err:
@@ -9549,6 +9526,16 @@ spec:
                   - time
                   type: object
                 type: array
+              hostIP:
+                type: string
+              phase:
+                description: UnitPhase is a label for the condition of a pod at the
+                  current time.
+                type: string
+              podIPs:
+                items:
+                  type: string
+                type: array
               volume_suffix:
                 properties:
                   cur_volume_suffix:
@@ -9562,6 +9549,9 @@ spec:
             required:
             - conditions
             - err_messages
+            - hostIP
+            - phase
+            - podIPs
             type: object
         required:
         - spec
