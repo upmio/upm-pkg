@@ -19,6 +19,7 @@ package v1alpha1
 
 import (
 	unitv1alpha1 "github.com/upmio/upm-pkg/pkg/apis/unit/v1alpha1"
+	v1 "k8s.io/api/core/v1"
 )
 
 // UnitStatusApplyConfiguration represents an declarative configuration of the UnitStatus type for use
@@ -28,7 +29,7 @@ type UnitStatusApplyConfiguration struct {
 	Conditions    []ConditionApplyConfiguration          `json:"conditions,omitempty"`
 	Phase         *unitv1alpha1.UnitPhase                `json:"phase,omitempty"`
 	HostIP        *string                                `json:"hostIP,omitempty"`
-	PodIPs        []string                               `json:"podIPs,omitempty"`
+	PodIPs        []v1.PodIP                             `json:"podIPs,omitempty"`
 	ErrMessages   []ErrMsgApplyConfiguration             `json:"err_messages,omitempty"`
 }
 
@@ -78,7 +79,7 @@ func (b *UnitStatusApplyConfiguration) WithHostIP(value string) *UnitStatusApply
 // WithPodIPs adds the given value to the PodIPs field in the declarative configuration
 // and returns the receiver, so that objects can be build by chaining "With" function invocations.
 // If called multiple times, values provided by each call will be appended to the PodIPs field.
-func (b *UnitStatusApplyConfiguration) WithPodIPs(values ...string) *UnitStatusApplyConfiguration {
+func (b *UnitStatusApplyConfiguration) WithPodIPs(values ...v1.PodIP) *UnitStatusApplyConfiguration {
 	for i := range values {
 		b.PodIPs = append(b.PodIPs, values[i])
 	}

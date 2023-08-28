@@ -405,7 +405,7 @@ func (in *UnitStatus) DeepCopyInto(out *UnitStatus) {
 	}
 	if in.PodIPs != nil {
 		in, out := &in.PodIPs, &out.PodIPs
-		*out = make([]string, len(*in))
+		*out = make([]v1.PodIP, len(*in))
 		copy(*out, *in)
 	}
 	if in.ErrMessages != nil {

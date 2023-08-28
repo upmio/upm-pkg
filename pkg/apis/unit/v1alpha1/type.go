@@ -229,7 +229,7 @@ type UnitStatus struct {
 	Conditions    []Condition          `json:"conditions"`
 	Phase         UnitPhase            `json:"phase"`
 	HostIP        string               `json:"hostIP"`
-	PodIPs        []string             `json:"podIPs"`
+	PodIPs        []coreV1.PodIP       `json:"podIPs"`
 	ErrMessages   []ErrMsg             `json:"err_messages"`
 }
 
