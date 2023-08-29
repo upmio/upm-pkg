@@ -152,6 +152,9 @@ type Architecture struct {
 	// enum: single,clone,replication_async,replication_semi_sync
 	// +optional
 	Mode string `json:"mode"`
+
+	// +optional
+	Role string `json:"role"`
 }
 
 // UnitsetStatus is the status for a Unitset resource

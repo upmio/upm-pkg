@@ -22,6 +22,7 @@ package v1alpha1
 type ArchitectureApplyConfiguration struct {
 	Units *int    `json:"units,omitempty"`
 	Mode  *string `json:"mode,omitempty"`
+	Role  *string `json:"role,omitempty"`
 }
 
 // ArchitectureApplyConfiguration constructs an declarative configuration of the Architecture type for use with
@@ -43,5 +44,13 @@ func (b *ArchitectureApplyConfiguration) WithUnits(value int) *ArchitectureApply
 // If called multiple times, the Mode field is set to the value of the last call.
 func (b *ArchitectureApplyConfiguration) WithMode(value string) *ArchitectureApplyConfiguration {
 	b.Mode = &value
+	return b
+}
+
+// WithRole sets the Role field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Role field is set to the value of the last call.
+func (b *ArchitectureApplyConfiguration) WithRole(value string) *ArchitectureApplyConfiguration {
+	b.Role = &value
 	return b
 }
