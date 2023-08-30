@@ -27,7 +27,7 @@ type UnitSpecApplyConfiguration struct {
 	Action               *ActionApplyConfiguration  `json:"action,omitempty"`
 	MainContainerName    *string                    `json:"mainContainerName,omitempty"`
 	MainImageVersion     *string                    `json:"mainImageVersion,omitempty"`
-	UnService            *bool                      `json:"unService,omitempty"`
+	Startup              *bool                      `json:"startup,omitempty"`
 	UnBindNode           *bool                      `json:"unBindNode,omitempty"`
 	Volumes              []v1.Volume                `json:"volumes,omitempty"`
 	VolumeClaimTemplates []v1.PersistentVolumeClaim `json:"volumeClaimTemplates,omitempty"`
@@ -65,11 +65,11 @@ func (b *UnitSpecApplyConfiguration) WithMainImageVersion(value string) *UnitSpe
 	return b
 }
 
-// WithUnService sets the UnService field in the declarative configuration to the given value
+// WithStartup sets the Startup field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the UnService field is set to the value of the last call.
-func (b *UnitSpecApplyConfiguration) WithUnService(value bool) *UnitSpecApplyConfiguration {
-	b.UnService = &value
+// If called multiple times, the Startup field is set to the value of the last call.
+func (b *UnitSpecApplyConfiguration) WithStartup(value bool) *UnitSpecApplyConfiguration {
+	b.Startup = &value
 	return b
 }
 

@@ -67,6 +67,8 @@ spec:
                 type: string
               mainImageVersion:
                 type: string
+              startup:
+                type: boolean
               template:
                 description: PodTemplateSpec describes the data a pod should have
                   when created from a template
@@ -7563,8 +7565,6 @@ spec:
                 type: object
               unBindNode:
                 type: boolean
-              unService:
-                type: boolean
               volumeClaimTemplates:
                 items:
                   description: PersistentVolumeClaim is a user's request for and claim
@@ -9489,8 +9489,8 @@ spec:
             - action
             - mainContainerName
             - mainImageVersion
+            - startup
             - template
-            - unService
             - volumeClaimTemplates
             - volumeMounts
             - volumes

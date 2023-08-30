@@ -102,7 +102,7 @@ type UnitSpec struct {
 	Action               Action                         `json:"action"`
 	MainContainerName    string                         `json:"mainContainerName"`
 	MainImageVersion     string                         `json:"mainImageVersion"`
-	UnService            bool                           `json:"unService"`
+	Startup              bool                           `json:"startup"`
 	UnBindNode           bool                           `json:"unBindNode,omitempty"`
 	Volumes              []coreV1.Volume                `json:"volumes"`
 	VolumeClaimTemplates []coreV1.PersistentVolumeClaim `json:"volumeClaimTemplates"`
