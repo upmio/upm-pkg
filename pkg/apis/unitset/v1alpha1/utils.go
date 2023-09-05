@@ -17,6 +17,10 @@ func GetUnitsetPodTemplateName(unitset Unitset) string {
 	return unitset.Spec.Image.TypeWithVersionAndArchByHyphen() + "-pod-tmpl"
 }
 
+func GetPodTemplateNameOfUnitset(unitset Unitset) string {
+	return unitset.GetName() + "-pod-tmpl"
+}
+
 // Version
 // e.g.: 5.7.0.1
 func (iv *ImageVersion) Version() string {

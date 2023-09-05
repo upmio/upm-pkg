@@ -12,6 +12,8 @@ spec:
     listKind: UnitList
     plural: units
     singular: unit
+    shortNames:
+    - uu
   scope: Namespaced
   versions:
   - name: v1alpha1
