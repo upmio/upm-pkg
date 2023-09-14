@@ -3,8 +3,8 @@ package tesseract_agent
 import (
 	"context"
 	"fmt"
-	"github.com/upmio/config-wrapper/app/config"
-	"github.com/upmio/config-wrapper/app/service"
+	"gitlab.bsgchina.com/upm/tesseract-agent/app/config"
+	"gitlab.bsgchina.com/upm/tesseract-agent/app/service"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -31,8 +31,9 @@ func SyncConfig(agentHostType, host, port, namespace, configmapName string) (str
 	client := config.NewSyncConfigServiceClient(conn)
 
 	req := config.SyncConfigRequest{
-		Namespace:     namespace,
-		ConfigmapName: configmapName,
+		Namespace:             namespace,
+		ConfigmapName:         configmapName,
+		ExtendValueConfigmaps: []string{configmapName},
 	}
 
 	resp, err := client.SyncConfig(context.Background(), &req)
