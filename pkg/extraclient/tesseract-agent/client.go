@@ -10,7 +10,7 @@ import (
 	"net"
 )
 
-func SyncConfig(agentHostType, host, port, namespace, configmapName string) (string, error) {
+func SyncConfig(agentHostType, host, port, namespace, configmapName string, extendConfigmaps []string) (string, error) {
 	// grpc.Dial负责和gRPC服务建立链接
 
 	addr := ""
@@ -33,7 +33,7 @@ func SyncConfig(agentHostType, host, port, namespace, configmapName string) (str
 	req := config.SyncConfigRequest{
 		Namespace:             namespace,
 		ConfigmapName:         configmapName,
-		ExtendValueConfigmaps: []string{configmapName},
+		ExtendValueConfigmaps: extendConfigmaps,
 	}
 
 	resp, err := client.SyncConfig(context.Background(), &req)
